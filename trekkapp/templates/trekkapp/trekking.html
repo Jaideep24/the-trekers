@@ -2,18 +2,65 @@
 
 {% load static %}
 {% block content %}
+
+<center><h1>Upcoming</h1></center>
+<section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
+  <div class="u-clearfix u-sheet u-valign-middle u-sheet-1" >
+    <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
+      <div class="u-repeater u-repeater-1">
+          {% for city in cities %}
+          {% if city.upcoming == True %}
+          <a href="{% url 'detail_article' city.id %}">
+                   <div class="u-align-left u-container-style u-list-item u-repeater-item" >
+          <div class="u-container-layout u-similar-container u-container-layout-1" >
+            
+            <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
+            <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+          </div>
+        </div>
+                   </a>
+{% endif %}
+{% endfor %}
+</div>
+      <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
+        <span aria-hidden="true">
+          <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+        </span>
+        <span class="sr-only">
+          <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+        </span>
+      </a>
+      <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="#" role="button">
+        <span aria-hidden="true">
+          <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+        </span>
+        <span class="sr-only">
+          <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
 <center><h1>Trekking</h1></center>
 {% for object in trekking %}
 <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1" >
       <h2 class="u-text u-text-default u-text-1">{{ object }}</h2>
-      <div class="u-expanded-width u-layout-horizontal u-list u-list-1">
+      <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
         <div class="u-repeater u-repeater-1">
             {% for city in cities %}
-            {% if city.trekking == object %}
-            <a href="Naneghat .html">
-                     <div class="u-align-left u-container-style u-list-item u-repeater-item">
-            <div class="u-container-layout u-similar-container u-container-layout-1">
+            {% if city.trekking == object and city.upcoming == False %}
+            <a href="{% url 'detail_article' city.id %}">
+                     <div class="u-align-left u-container-style u-list-item u-repeater-item" >
+            <div class="u-container-layout u-similar-container u-container-layout-1" >
               
               <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
               <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
@@ -56,11 +103,11 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
   <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <h2 class="u-text u-text-default u-text-1">{{ object }}</h2>
-        <div class="u-expanded-width u-layout-horizontal u-list u-list-1">
+        <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
           <div class="u-repeater u-repeater-1">
               {% for city in cities %}
-              {% if city.festival == object %}
-              <a href="Naneghat .html">
+              {% if city.festival == object and city.upcoming == False %}
+              <a href="{% url 'detail_article' city.id %}">
                        <div class="u-align-left u-container-style u-list-item u-repeater-item">
               <div class="u-container-layout u-similar-container u-container-layout-1">
                 <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
@@ -104,11 +151,11 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <h2 class="u-text u-text-default u-text-1">{{ object }}</h2>
-      <div class="u-expanded-width u-layout-horizontal u-list u-list-1">
+      <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
         <div class="u-repeater u-repeater-1">
             {% for city in cities %}
-            {% if city.adventure == object %}
-            <a href="Naneghat .html">
+            {% if city.adventure == object and city.upcoming == False %}
+            <a href="{% url 'detail_article' city.id %}">
                      <div class="u-align-left u-container-style u-list-item u-repeater-item">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
@@ -150,10 +197,11 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
   <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <h2 class="u-text u-text-default u-text-1">Cycling</h2>
-      <div class="u-expanded-width u-layout-horizontal u-list u-list-1">
+      <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
         <div class="u-repeater u-repeater-1">
             {% for city in cycling %}
-            <a href="Naneghat .html">
+            {% if city.upcoming == False %}
+            <a href="{% url 'detail_article' city.id %}">
                      <div class="u-align-left u-container-style u-list-item u-repeater-item">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
@@ -161,7 +209,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             </div>
           </div>
                      </a>
-
+{% endif %}
 {% endfor %}
 </div>
         <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
@@ -195,10 +243,11 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
   <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <h2 class="u-text u-text-default u-text-1">Camping</h2>
-      <div class="u-expanded-width u-layout-horizontal u-list u-list-1">
+      <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
         <div class="u-repeater u-repeater-1">
             {% for city in camping %}
-            <a href="Naneghat .html">
+            {% if city.upcoming == False %}
+            <a href="{% url 'detail_article' city.id %}">
                      <div class="u-align-left u-container-style u-list-item u-repeater-item">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
@@ -206,7 +255,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             </div>
           </div>
                      </a>
-
+{% endif %}
 {% endfor %}
 </div>
         <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
@@ -239,10 +288,11 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
   <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <h2 class="u-text u-text-default u-text-1">Tours</h2>
-      <div class="u-expanded-width u-layout-horizontal u-list u-list-1">
+      <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
         <div class="u-repeater u-repeater-1">
             {% for city in tours %}
-            <a href="Naneghat .html">
+            {% if city.upcoming == False %}
+            <a href="{% url 'detail_article' city.id %}">
                      <div class="u-align-left u-container-style u-list-item u-repeater-item">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
@@ -250,7 +300,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             </div>
           </div>
                      </a>
-
+{% endif %}
 {% endfor %}
 </div>
         <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">

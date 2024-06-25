@@ -31,17 +31,27 @@ class City(models.Model):
     difficulty=models.CharField(max_length=100, default="easy")
     date=models.DateField(default=timezone.now().date())
     fees=models.PositiveSmallIntegerField(default=0)
-    info=models.CharField(max_length=100, default="")
-    itenary=models.CharField(max_length=100, default="")
-    inclusions=models.CharField(max_length=100, default="")
+    info=models.CharField(max_length=1000, default="")
+    itenary=models.CharField(max_length=10000, default="")
+    inclusions=models.CharField(max_length=1000, default="")
+    upcoming=models.BooleanField(default=False)
     def __str__(self):
         return self.name
 
 class Cycling(models.Model):
     name=models.CharField(max_length=100)
+    upcoming=models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
 
 class Camping(models.Model):
     name=models.CharField(max_length=100)
+    upcoming=models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
 
 class Tours(models.Model):
     name=models.CharField(max_length=100)
+    upcoming=models.BooleanField(default=False)
+    def __str__(self):
+        return self.name

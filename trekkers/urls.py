@@ -19,4 +19,5 @@ from trekkapp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',index),
+    path('<int:pk>/', Detailedtrek.as_view(), name='detail_article'),
 ]
