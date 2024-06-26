@@ -11,7 +11,7 @@
           {% for city in cities %}
           {% if city.upcoming == True %}
           <a href="{% url 'detail_article' city.id %}">
-                   <div class="u-align-left u-container-style u-list-item u-repeater-item" >
+                   <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
           <div class="u-container-layout u-similar-container u-container-layout-1" >
             
             <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
@@ -59,7 +59,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             {% for city in cities %}
             {% if city.trekking == object and city.upcoming == False %}
             <a href="{% url 'detail_article' city.id %}">
-                     <div class="u-align-left u-container-style u-list-item u-repeater-item" >
+                     <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
             <div class="u-container-layout u-similar-container u-container-layout-1" >
               
               <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
@@ -108,7 +108,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
               {% for city in cities %}
               {% if city.festival == object and city.upcoming == False %}
               <a href="{% url 'detail_article' city.id %}">
-                       <div class="u-align-left u-container-style u-list-item u-repeater-item">
+                       <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
               <div class="u-container-layout u-similar-container u-container-layout-1">
                 <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
@@ -156,7 +156,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             {% for city in cities %}
             {% if city.adventure == object and city.upcoming == False %}
             <a href="{% url 'detail_article' city.id %}">
-                     <div class="u-align-left u-container-style u-list-item u-repeater-item">
+                     <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
               <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
@@ -202,7 +202,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             {% for city in cycling %}
             {% if city.upcoming == False %}
             <a href="{% url 'detail_article' city.id %}">
-                     <div class="u-align-left u-container-style u-list-item u-repeater-item">
+                     <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
               <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
@@ -248,7 +248,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             {% for city in camping %}
             {% if city.upcoming == False %}
             <a href="{% url 'detail_article' city.id %}">
-                     <div class="u-align-left u-container-style u-list-item u-repeater-item">
+                     <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
               <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
@@ -293,7 +293,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             {% for city in tours %}
             {% if city.upcoming == False %}
             <a href="{% url 'detail_article' city.id %}">
-                     <div class="u-align-left u-container-style u-list-item u-repeater-item">
+                     <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
               <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
