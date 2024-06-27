@@ -43187,55 +43187,7 @@ a.u-link.u-text-hover-grey-90:hover {
               </button>
               <input class="u-search-input" type="search" name="search" id="search" value="" placeholder="Search">
               <br>
-              <div style="position: fixed; z-index: 1000; background-color: #ffffff; margin-top: 2%;" id="list"></div>
-              <script>
-                let searcharray=[];
-                let somearray=JSON.parse('{{ cities_json|escapejs }}');
-                
-        for (let i = 0; i < somearray.length; i++) {
-            searcharray.push(somearray[i].name);
-        }
-                console.log(searcharray);
-                function check(word1,word2)
-                {console.log('ichekced')
-                  let a=0;
-                  let wordy1=word1.toLowerCase().split('');
-                  let wordy2=word2.toLowerCase().split('');
-                  for(let i=0;i<wordy1.length;i++)
-                  {
-                    if(wordy1[i]!=wordy2[i])
-                    {
-                      a=1;
-                    }
-                  }
-                  if(a==1){
-                    return false;
-                  }
-                  else{
-                    return true;
-                  }
-                }
-                function execute(word)
-                {console.log('i workded too');
-                console.log(searcharray.length);
-                  document.getElementById("list").innerHTML="";
-                  let addstuff="<ul>";
-                  for(i=0; i<searcharray.length;i++)
-                  {
-                    if(check(word,searcharray[i]))
-                    { console.log('yes');
-                      addstuff=addstuff+"<li><a href='#"+searcharray[i]+"'>"+searcharray[i]+"</a>";
-                    }
-                  }
-                  addstuff=addstuff+"</ul>";
-                  document.getElementById("list").innerHTML=addstuff;
-                }
-                document.getElementById("search").addEventListener('input', function(){ 
-                  if(document.getElementById("search").value!=""){
-                  execute(document.getElementById("search").value);}
-                });
-                
-              </script>
+              
             </form>
             <div class="u-clearfix u-custom-html u-expanded-width u-palette-2-base u-custom-html-1">
               <h1>

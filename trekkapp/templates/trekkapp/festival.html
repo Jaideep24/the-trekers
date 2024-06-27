@@ -1,1 +1,41 @@
 {% include 'trekapp/Home.html' %}
+if(bigarray['adventure']['fireflies'].length!=0 || bigarray['adventure']['one day'].length!=0 || bigarray['adventure']['night'].length!=0 || bigarray['adventure']['waterfall'].length!=0)
+{
+  everything=everything+"<center><h1>adventure</h1></center>";
+  if(bigarray['adventure']['monsoon'].length!=0)
+  {
+    everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Monsoon</h2>'+startingsecondhalf;
+    for(let o=0;o<bigarray['adventure']['monsoon'].length;o++)
+    {
+      everything=everything+'<a href="'+bigarray['adventure']['monsoon'][o]['id']+'">'+middlefirsthalf+bigarray['adventure']['monsoon'][o]['name']+middlesecondhalf;
+    }
+    everything=everything+end;
+  }
+  if(bigarray['adventure']['night'].length!=0)
+  {
+    everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Night</h2>'+startingsecondhalf;
+    for(let o=0;o<bigarray['adventure']['night'].length;o++)
+    {
+      everything=everything+'<a href="'+bigarray['adventure']['night'][o]['id']+'">'+middlefirsthalf+bigarray['adventure']['night'][o]['name']+middlesecondhalf;
+    }
+    everything=everything+end;
+  }
+  if(bigarray['adventure']['one day'].length!=0)
+  {
+    everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">One Day</h2>'+startingsecondhalf;
+    for(let o=0;o<bigarray['adventure']['one day'].length;o++)
+    {
+      everything=everything+'<a href="'+bigarray['adventure']['one day'][o]['id']+'">'+middlefirsthalf+bigarray['adventure']['one day'][o]['name']+middlesecondhalf;
+    }
+    everything=everything+end;
+  }
+  if(bigarray['adventure']['waterfall'].length!=0)
+  {
+    everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Waterfall</h2>'+startingsecondhalf;
+    for(let o=0;o<bigarray['adventure']['waterfall'].length;o++)
+    {
+      everything=everything+'<a href="'+bigarray['adventure']['waterfall'][o]['id']+'">'+middlefirsthalf+bigarray['adventure']['waterfall'][o]['name']+middlesecondhalf;
+    }
+    everything=everything+end;
+  }
+}

@@ -5,7 +5,7 @@
   <ul>
     {% for i in cities %}
     {% if i.upcoming == True %}
-    <li><a href="{% url 'detail_article' city.id %}">{{ i.name }}</a></li>
+    <li><a href="{% url 'detail_article' i.pk %}">{{ i.name }}</a></li>
     {% endif %}
     {% endfor %}
   </ul>
