@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h3 {
+            color: forestgreen;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 5px solid forestgreen;
+            border-radius: 15px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: seagreen;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .radio-group {
+            display: flex;
+            align-items: center;
+        }
+        .radio-group label {
+            margin-right: 10px;
+        }
+        #output {
+            display: none;
+        }
+        #warning {
+            color: red;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script>
+        var people;
+
+        function SubForm() {
+            var fullName = document.getElementById("full_name").value;
+            var email = document.getElementById("email").value;
+            var phoneNumber = document.getElementById("phone_no").value;
+
+            if (fullName !== "" && email !== "" && phoneNumber !== "" && isValidEmail(email)) {
+                document.getElementById("output").style.display = "block";
+                document.getElementById("input").style.display = "none";
+                document.getElementById("Confirmation").style.backgroundColor = "seagreen";
+
+                document.getElementById("name").innerHTML = "Name: " + fullName;
+                document.getElementById("email_out").innerHTML = "Email: " + email;
+                document.getElementById("number").innerHTML = "Phone No.: " + phoneNumber;
+
+                people = document.getElementById("people").value;
+                document.getElementById("first").innerHTML = "Number of people: " + people;
+                document.getElementById("second").innerHTML = "Price per head: Rs. 600";
+
+                if (people > 4) {
+                    var discountAmount = (people * 600) * 0.1;
+                    var totalAmount = (people * 600) - discountAmount;
+                    document.getElementById("third").innerHTML = people + " x 600 - 10%";
+                    document.getElementById("fourth").innerHTML = "Total: Rs. " + totalAmount;
+                    alert("You have received a special 10% discount for a booking of more than 4.");
+                } else {
+                    var totalAmount = people * 600;
+                    document.getElementById("third").innerHTML = people + " x 600";
+                    document.getElementById("fourth").innerHTML = "Total: Rs. " + totalAmount;
+                }
+
+                var foodChoice = document.querySelector('input[name="Jain"]:checked').value;
+                document.getElementById("food").innerHTML = "Food: " + foodChoice;
+
+                // You can submit the form data using AJAX here
+                // Example: $.ajax({ ... });
+                $.ajax({
+				url:"https://api.apispreadsheets.com/data/h6VnLMmnIAbMEf8Y/",
+				type:"post",
+				data:$("#myForm").serializeArray(),
+				error: function(){
+					alert("There was an error :(")
+				}
+			});
+
+            } else {
+                document.getElementById("warning").innerHTML = "Please enter all fields and a valid email address.";
+            }
+        }
+
+        function isValidEmail(email) {
+            var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            return regex.test(email);
+        }
+
+        function Back() {
+            document.getElementById("input").style.display = "block";
+            document.getElementById("output").style.display = "none";
+            document.getElementById("Confirmation").style.backgroundColor = "darkseagreen";
+            document.getElementById("warning").innerHTML = "";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <center>
+        <button class="btn">Contact Details</button>
+        <button id="Confirmation" class="btn" style="background-color: darkseagreen;">Confirmation</button>
+        </center>
+        <div id="input">
+            <h3>Contact Details</h3>
+            <form id="myForm">
+                <div class="form-group">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" id="full_name" name="full_name" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label for="phone_no">Phone No.</label>
+                    <input type="tel" id="phone_no" name="phone_no" required />
+                </div>
+                <div class="form-group">
+                    <label>Food Preference</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="Jain" value="Jain"> Jain</label>
+                        <label><input type="radio" name="Jain" value="Non-Jain"> Non Jain</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="people">Number of People</label>
+                    <select id="people" name="people">
+                        <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    </select>
+                </div>
+                <center><button type="button" onclick="SubForm()">Submit</button></center>
+                <p id="warning"></p>
+            </form>
+        </div>
+        <div id="output">
+            <h3>Review Your Booking</h3>
+            <ul>
+                <li>Event Name</li>
+                <li id="name">Full Name</li>
+                <li id="email_out">Email</li>
+                <li id="number">Phone No.</li>
+                <li id="food">Food</li>
+            </ul>
+            <h3>Payment Details</h3>
+            <ul>
+                <li id="first"></li>
+                <li id="second"></li>
+                <li id="third"></li>
+                <li id="fourth"></li>
+            </ul>
+            <center>While making payments please enter your name</center>
+            <h3>Payment Methods</h3>
+            <button onclick="Back()">Back</button>
+            <button style="margin-left: 80%;">Pay Now</button>
+            
+        </div>
+    </div>
+</body>
+</html>

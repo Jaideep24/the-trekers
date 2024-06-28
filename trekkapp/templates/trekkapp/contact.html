@@ -1,0 +1,8 @@
+{% include 'trekkapp/Home.html' %}
+{% load static %}
+<div><form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-warning">Submit</button>
+    </form>
+</div>

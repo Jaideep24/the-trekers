@@ -6,8 +6,9 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 import json
-#from .forms import *
+from .forms import *
 from .models import *
+from django.core.mail import send_mail
 # Create your views here.
 
 def index(request):
@@ -21,7 +22,37 @@ class Detailedtrek(DetailView):
     def get_context_data(self, **kwargs):
         context = super(Detailedtrek,self).get_context_data(**kwargs)
         context["cities"]=City.objects.all()
+        self.object=self.get_object()
+        context["form"]=EnquireForm(initial={'thetrek':self.object})
         return context
+    
+    def post(self, request, **kwargs):
+        print(request.POST)
+        if 'name' in request.POST:
+            self.object = self.get_object()
+            print(self.object)
+            
+            form = EnquireForm(request.POST)
+            print(form)
+            print(request.POST)
+            if form.is_valid():
+                print("its valid")
+                inquiry = form.save(commit=False)
+                inquiry.thetrek = self.object  # Assign the City object to the form field
+                inquiry.save()
+                recipient_email = form.cleaned_data['email']
+                subject = 'the trekers enquiry'
+                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {form.cleaned_data['thetrek']}"
+                from_email = 'taskmaster@gmail.com'  # Replace with your email address
+
+                # Send email
+                send_mail(subject, message, from_email, [recipient_email])
+                return HttpResponseRedirect(self.request.path_info)
+            else:
+                print(form.errors)  # Print form errors to console for debugging
+                return render(request, 'trekkapp/contact.html', {'form': form})
+        else:
+             return render(request, 'trekkapp/contact.html', {'form': EnquireForm})
 class DetailedCycle(DetailView):
     model=Cycling
     template_name="trekkapp/trekdetails.html"
@@ -29,7 +60,37 @@ class DetailedCycle(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailedCycle,self).get_context_data(**kwargs)
         context["cities"]=City.objects.all()
+        context["form"]=EnquireForm(initial={'thetrek':self.object})
         return context
+    
+    
+    def post(self, request, **kwargs):
+        print(request.POST)
+        if 'name' in request.POST:
+            self.object = self.get_object()
+            print(self.object)
+            
+            form = EnquireForm(request.POST)
+            print(form)
+            print(request.POST)
+            if form.is_valid():
+                print("its valid")
+                inquiry = form.save(commit=False)
+                inquiry.thetrek = self.object  # Assign the City object to the form field
+                inquiry.save()
+                recipient_email = form.cleaned_data['email']
+                subject = 'the trekers enquiry'
+                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {form.cleaned_data['thetrek']}"
+                from_email = 'taskmaster@gmail.com'  # Replace with your email address
+
+                # Send email
+                send_mail(subject, message, from_email, [recipient_email])
+                return HttpResponseRedirect(self.request.path_info)
+            else:
+                print(form.errors)  # Print form errors to console for debugging
+                return render(request, 'trekkapp/contact.html', {'form': form})
+        else:
+             return render(request, 'trekkapp/contact.html', {'form': EnquireForm})
 class DetailedCamp(DetailView):
     model=Camping
     template_name="trekkapp/trekdetails.html"
@@ -37,7 +98,35 @@ class DetailedCamp(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailedCamp,self).get_context_data(**kwargs)
         context["cities"]=City.objects.all()
+        context["form"]=EnquireForm(initial={'thetrek':self.object})
         return context
+    def post(self, request, **kwargs):
+        print(request.POST)
+        if 'name' in request.POST:
+            self.object = self.get_object()
+            print(self.object)
+            
+            form = EnquireForm(request.POST)
+            print(form)
+            print(request.POST)
+            if form.is_valid():
+                print("its valid")
+                inquiry = form.save(commit=False)
+                inquiry.thetrek = self.object  # Assign the City object to the form field
+                inquiry.save()
+                recipient_email = form.cleaned_data['email']
+                subject = 'the trekers enquiry'
+                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {form.cleaned_data['thetrek']}"
+                from_email = 'taskmaster@gmail.com'  # Replace with your email address
+
+                # Send email
+                send_mail(subject, message, from_email, [recipient_email])
+                return HttpResponseRedirect(self.request.path_info)
+            else:
+                print(form.errors)  # Print form errors to console for debugging
+                return render(request, 'trekkapp/contact.html', {'form': form})
+        else:
+             return render(request, 'trekkapp/contact.html', {'form': EnquireForm})
 class Detailedtour(DetailView):
     model=Tours
     template_name="trekkapp/trekdetails.html"
@@ -45,7 +134,36 @@ class Detailedtour(DetailView):
     def get_context_data(self, **kwargs):
         context = super(Detailedtour,self).get_context_data(**kwargs)
         context["cities"]=City.objects.all()
+        context["form"]=EnquireForm(initial={'thetrek':self.object})
         return context
+    
+    def post(self, request, **kwargs):
+        print(request.POST)
+        if 'name' in request.POST:
+            self.object = self.get_object()
+            print(self.object)
+            
+            form = EnquireForm(request.POST)
+            print(form)
+            print(request.POST)
+            if form.is_valid():
+                print("its valid")
+                inquiry = form.save(commit=False)
+                inquiry.thetrek = self.object  # Assign the City object to the form field
+                inquiry.save()
+                recipient_email = form.cleaned_data['email']
+                subject = 'the trekers enquiry'
+                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {form.cleaned_data['thetrek']}"
+                from_email = 'taskmaster@gmail.com'  # Replace with your email address
+
+                # Send email
+                send_mail(subject, message, from_email, [recipient_email])
+                return HttpResponseRedirect(self.request.path_info)
+            else:
+                print(form.errors)  # Print form errors to console for debugging
+                return render(request, 'trekkapp/contact.html', {'form': form})
+        else:
+             return render(request, 'trekkapp/contact.html', {'form': EnquireForm})
 def data_city(request):
     data = list(City.objects.all().values())  # Convert queryset to list of dictionaries
     return JsonResponse(data, safe=False)

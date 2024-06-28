@@ -10,6 +10,8 @@
     {% endfor %}
   </ul>
   </div>
+  <form action="" method="post" style="position: fixed; z-index: 1000;">{% csrf_token %}<button class="btn btn-primary"  >Enquire</button></form>
+  
   <div style="box-shadow: 1px 1px 200px -100px; ">
     <h1 style="position: absolute; padding-top: 30%;">
       {{ object.name}}
