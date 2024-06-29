@@ -1,8 +1,17 @@
 {% include 'trekkapp/Home.html' %}
+{% load crispy_forms_tags %}
+
 {% load static %}
-<div><form action="" method="post">
+{% if success %}
+<div class="btn btn-success">The form was submitted successfully</div>
+{% endif %}
+{% if failure %}
+<div class="btn btn-warning">The form was not submitted error</div>
+{% endif %}
+<center>
+<div style="width: 70%;" class="btn btn-warning"><form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     <button type="submit" class="btn btn-warning">Submit</button>
     </form>
-</div>
+</div></center>

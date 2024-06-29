@@ -17,8 +17,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server address
 EMAIL_PORT = 587  # Replace with your SMTP server port (587 for TLS)
 EMAIL_USE_TLS = True  # Enable TLS encryption
-EMAIL_HOST_USER = 'taskmaster2404@gmail.com'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'uofo lfaq dopj ddwz'  # Replace with your email password or app password
+EMAIL_HOST_USER = 'jaideep.technographix@gmail.com'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'alxw symo nype ohdd'  # Replace with your email password or app password
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +37,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1','192.168.29.142','192.168.0.152','your
 
 
 # Application definition
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'trekkapp',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

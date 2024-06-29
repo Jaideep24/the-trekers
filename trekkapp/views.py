@@ -23,7 +23,8 @@ class Detailedtrek(DetailView):
         context = super(Detailedtrek,self).get_context_data(**kwargs)
         context["cities"]=City.objects.all()
         self.object=self.get_object()
-        context["form"]=EnquireForm(initial={'thetrek':self.object})
+        print(self.object.trekking)
+        context["form"]=EnquireForm(initial={'thetrek':self.object.__dict__})
         return context
     
     def post(self, request, **kwargs):
@@ -38,12 +39,12 @@ class Detailedtrek(DetailView):
             if form.is_valid():
                 print("its valid")
                 inquiry = form.save(commit=False)
-                inquiry.thetrek = self.object  # Assign the City object to the form field
+                inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
                 inquiry.save()
-                recipient_email = form.cleaned_data['email']
+                recipient_email = 'jaideep.technographix@gmail.com'
                 subject = 'the trekers enquiry'
-                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {form.cleaned_data['thetrek']}"
-                from_email = 'taskmaster@gmail.com'  # Replace with your email address
+                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {self.object.__dict__}"
+                from_email = form.cleaned_data['email']  # Replace with your email address
 
                 # Send email
                 send_mail(subject, message, from_email, [recipient_email])
@@ -76,12 +77,12 @@ class DetailedCycle(DetailView):
             if form.is_valid():
                 print("its valid")
                 inquiry = form.save(commit=False)
-                inquiry.thetrek = self.object  # Assign the City object to the form field
+                inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
                 inquiry.save()
-                recipient_email = form.cleaned_data['email']
+                recipient_email = 'jaideep.technographix@gmail.com'
                 subject = 'the trekers enquiry'
-                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {form.cleaned_data['thetrek']}"
-                from_email = 'taskmaster@gmail.com'  # Replace with your email address
+                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: { self.object.__dict__}"
+                from_email = form.cleaned_data['email']  # Replace with your email address
 
                 # Send email
                 send_mail(subject, message, from_email, [recipient_email])
@@ -112,12 +113,12 @@ class DetailedCamp(DetailView):
             if form.is_valid():
                 print("its valid")
                 inquiry = form.save(commit=False)
-                inquiry.thetrek = self.object  # Assign the City object to the form field
+                inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
                 inquiry.save()
-                recipient_email = form.cleaned_data['email']
+                recipient_email = 'jaideep.technographix@gmail.com'
                 subject = 'the trekers enquiry'
-                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {form.cleaned_data['thetrek']}"
-                from_email = 'taskmaster@gmail.com'  # Replace with your email address
+                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: { self.object.__dict__}"
+                from_email = form.cleaned_data['email']  # Replace with your email address
 
                 # Send email
                 send_mail(subject, message, from_email, [recipient_email])
@@ -149,12 +150,12 @@ class Detailedtour(DetailView):
             if form.is_valid():
                 print("its valid")
                 inquiry = form.save(commit=False)
-                inquiry.thetrek = self.object  # Assign the City object to the form field
+                inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
                 inquiry.save()
-                recipient_email = form.cleaned_data['email']
+                recipient_email = 'jaideep.technographix@gmail.com'
                 subject = 'the trekers enquiry'
-                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {form.cleaned_data['thetrek']}"
-                from_email = 'taskmaster@gmail.com'  # Replace with your email address
+                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: { self.object.__dict__}"
+                from_email = form.cleaned_data['email']  # Replace with your email address
 
                 # Send email
                 send_mail(subject, message, from_email, [recipient_email])
@@ -164,6 +165,43 @@ class Detailedtour(DetailView):
                 return render(request, 'trekkapp/contact.html', {'form': form})
         else:
              return render(request, 'trekkapp/contact.html', {'form': EnquireForm})
+        
+def contact(request):
+    if request.method=='POST':
+        form=ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            recipient_email = 'jaideep.technographix@gmail.com'
+            subject = 'the trekers contact'
+            message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}"
+            from_email = form.cleaned_data['email']  # Replace with your email address
+
+             # Send email
+            send_mail(subject, message, from_email, [recipient_email])
+            return render(request,'trekkapp/contact.html',{'form':ContactForm,'success':True})
+        else:
+            return render(request,'trekkapp/contact.html',{'form':ContactForm,'failure':True})
+    else:
+        return render(request,'trekkapp/contact.html',{'form':ContactForm})
+
+def personal(request):
+    if request.method=='POST':
+        form=ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            recipient_email = 'jaideep.technographix@gmail.com'
+            subject = 'the trekers custom trek'
+            message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}"
+            from_email = form.cleaned_data['email']  # Replace with your email address
+
+            # Send email
+            send_mail(subject, message, from_email, [recipient_email])
+            return render(request,'trekkapp/contact.html',{'form':PersonalForm,'success':True})
+        else:
+            return render(request,'trekkapp/contact.html',{'form':PersonalForm,'failure':True})
+    else:
+        return render(request,'trekkapp/contact.html',{'form':PersonalForm})
+                  
 def data_city(request):
     data = list(City.objects.all().values())  # Convert queryset to list of dictionaries
     return JsonResponse(data, safe=False)

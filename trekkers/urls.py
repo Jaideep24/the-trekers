@@ -23,6 +23,8 @@ urlpatterns = [
     path('cycling/<int:pk>/', DetailedCycle.as_view(), name='detail_cycle'),
     path('camping/<int:pk>/', DetailedCamp.as_view(), name='detail_camp'),
     path('tour/<int:pk>/', Detailedtour.as_view(), name='detail_tour'),
+    path('contact', contact, name='contactform'),
+    path('personaltrek', personal, name='personalform'),
     path('api/city',data_city),
     path('api/camping',data_camping),
     path('api/cycling',data_cycling),

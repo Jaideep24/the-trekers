@@ -87,7 +87,7 @@ class enquire(models.Model):
     email=models.EmailField()
     number=models.IntegerField(max_length=10)
     message=models.TextField()
-    thetrek=models.CharField(max_length=100)
+    thetrek=models.CharField(max_length=10000)
 class personaltrek(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField()

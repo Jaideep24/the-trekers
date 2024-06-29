@@ -7,10 +7,11 @@ class ContactForm(forms.ModelForm):
         fields=['name','email','number','message']
 
 class EnquireForm(forms.ModelForm):
+    thetrek=forms.CharField(required=False)
     class Meta:
         model=enquire
         fields=['name','email','number','message','thetrek']
-        
+        widgets={'thetrek':forms.HiddenInput()}
 
 class PersonalForm(forms.ModelForm):
     class Meta:
