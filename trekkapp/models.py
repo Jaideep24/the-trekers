@@ -35,6 +35,8 @@ class City(models.Model):
     itenary=models.CharField(max_length=10000, default="")
     inclusions=models.CharField(max_length=1000, default="")
     upcoming=models.BooleanField(default=False)
+    image=models.ImageField(default="LOGO.png")
+    map=models.CharField(default='<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.07931841176!2d72.82962437395439!3d19.19173764833135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b72e2cf5a19d%3A0xbe3acd83444503!2sTechno%20Graphix!5e0!3m2!1sen!2sin!4v1719401531201!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', max_length=10000)
     def __str__(self):
         return self.name
 
@@ -48,6 +50,8 @@ class Cycling(models.Model):
     info=models.CharField(max_length=1000, default="")
     itenary=models.CharField(max_length=10000, default="")
     inclusions=models.CharField(max_length=1000, default="")
+    image=models.ImageField(default="LOGO.png")
+    map=models.CharField(default='<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.07931841176!2d72.82962437395439!3d19.19173764833135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b72e2cf5a19d%3A0xbe3acd83444503!2sTechno%20Graphix!5e0!3m2!1sen!2sin!4v1719401531201!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', max_length=10000)
     def __str__(self):
         return self.name
 
@@ -61,6 +65,8 @@ class Camping(models.Model):
     info=models.CharField(max_length=1000, default="")
     itenary=models.CharField(max_length=10000, default="")
     inclusions=models.CharField(max_length=1000, default="")
+    image=models.ImageField(default="LOGO.png")
+    map=models.CharField(default='<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.07931841176!2d72.82962437395439!3d19.19173764833135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b72e2cf5a19d%3A0xbe3acd83444503!2sTechno%20Graphix!5e0!3m2!1sen!2sin!4v1719401531201!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', max_length=10000)
     def __str__(self):
         return self.name
 
@@ -74,6 +80,8 @@ class Tours(models.Model):
     info=models.CharField(max_length=1000, default="")
     itenary=models.CharField(max_length=10000, default="")
     inclusions=models.CharField(max_length=1000, default="")
+    image=models.ImageField(default="LOGO.png")
+    map=models.CharField(default='<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.07931841176!2d72.82962437395439!3d19.19173764833135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b72e2cf5a19d%3A0xbe3acd83444503!2sTechno%20Graphix!5e0!3m2!1sen!2sin!4v1719401531201!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', max_length=10000)
     def __str__(self):
         return self.name
     
@@ -82,14 +90,20 @@ class contact(models.Model):
     email=models.EmailField()
     number=models.IntegerField(max_length=10)
     message=models.TextField()
+    def __str__(self):
+        return self.name
 class enquire(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField()
     number=models.IntegerField(max_length=10)
     message=models.TextField()
     thetrek=models.CharField(max_length=10000)
+    def __str__(self):
+        return self.name
 class personaltrek(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField()
     number=models.IntegerField(max_length=10)
     message=models.TextField()
+    def __str__(self):
+        return self.name

@@ -14,7 +14,46 @@
                      <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
             <div class="u-container-layout u-similar-container u-container-layout-1" >
               
-              <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
+              <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+              <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+            </div>
+          </div>
+                     </a>
+  {% endif %}
+  {% endfor %}
+  {% for city in cycling %}
+            {% if city.upcoming == True %}
+            <a href="{% url 'detail_cycle' city.pk %}">
+                     <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+            <div class="u-container-layout u-similar-container u-container-layout-1" >
+              
+              <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+              <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+            </div>
+          </div>
+                     </a>
+  {% endif %}
+  {% endfor %}
+  {% for city in camping %}
+            {% if city.upcoming == True %}
+            <a href="{% url 'detail_camp' city.pk %}">
+                     <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+            <div class="u-container-layout u-similar-container u-container-layout-1" >
+              
+              <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+              <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+            </div>
+          </div>
+                     </a>
+  {% endif %}
+  {% endfor %}
+  {% for city in tours %}
+            {% if city.upcoming == True %}
+            <a href="{% url 'detail_tour' city.pk %}">
+                     <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+            <div class="u-container-layout u-similar-container u-container-layout-1" >
+              
+              <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
               <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
             </div>
           </div>
@@ -63,7 +102,7 @@
                        <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
               <div class="u-container-layout u-similar-container u-container-layout-1" >
                 
-                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
               </div>
             </div>
@@ -111,7 +150,7 @@
                 <a href="{% url 'detail_article' city.pk %}">
                          <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
                 <div class="u-container-layout u-similar-container u-container-layout-1">
-                  <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
+                  <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
                   <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
                 </div>
               </div>
@@ -159,7 +198,7 @@
               <a href="{% url 'detail_article' city.pk %}">
                        <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
               <div class="u-container-layout u-similar-container u-container-layout-1">
-                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
               </div>
             </div>
@@ -205,7 +244,7 @@
               <a href="{% url 'detail_cycle' city.pk %}">
                        <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
               <div class="u-container-layout u-similar-container u-container-layout-1">
-                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
               </div>
             </div>
@@ -251,7 +290,7 @@
               <a href="{% url 'detail_camp' city.pk %}">
                        <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
               <div class="u-container-layout u-similar-container u-container-layout-1">
-                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
               </div>
             </div>
@@ -296,7 +335,7 @@
               <a href="{% url 'detail_tour' city.pk %}">
                        <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
               <div class="u-container-layout u-similar-container u-container-layout-1">
-                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
               </div>
             </div>

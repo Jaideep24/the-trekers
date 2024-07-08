@@ -1,5 +1,18 @@
 {% include 'trekkapp/Home.html' %}
 {% load static %}
+<div style="padding: 2%; position: fixed; z-index: 1000; margin-top: -19%; margin-left: 63%; box-shadow: 1px 1px 50px -10px; background-color: #fff; border-radius: 8px;">
+<form action="" method="post" >{% csrf_token %}<button class="btn btn-primary">Enquire</button></form>
+<br>
+<script>
+  function booknow(){
+      document.getElementById("booknow").style.opacity=1;
+      document.getElementById("booknow").style.zIndex=5000;
+    }
+</script>
+{% if object.upcoming %}
+<button onclick="booknow()" class="btn btn-primary">Book Now</button>
+{% endif %}
+</div>
 <div style="position: fixed; margin: -15% 0% 0% 75%; box-shadow: 1px 1px 200px -100px;  padding: 5%;">
     <h3>Upcoming</h3>
   <ul>
@@ -10,17 +23,206 @@
     {% endfor %}
   </ul>
   </div>
-  <form action="" method="post" style="position: fixed; z-index: 1000;">{% csrf_token %}<button class="btn btn-primary"  >Enquire</button></form>
-  
-  <div style="box-shadow: 1px 1px 200px -100px; ">
-    <h1 style="position: absolute; padding-top: 30%;">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    h4 {
+        color: forestgreen;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 10px;
+        border: 5px solid forestgreen;
+        border-radius: 15px;
+    }
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: seagreen;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .radio-group {
+        display: flex;
+        align-items: center;
+    }
+    .radio-group label {
+        margin-right: 10px;
+    }
+    #output {
+        display: none;
+    }
+    #warning {
+        color: red;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script>
+    var people;
+    var price = {{ object.fees|safe }};
+
+    function SubForm() {
+        var fullName = document.getElementById("full_name").value;
+        var email = document.getElementById("email").value;
+        var phoneNumber = document.getElementById("phone_no").value;
+
+        if (fullName !== "" && email !== "" && phoneNumber !== "" && isValidEmail(email)) {
+            document.getElementById("output").style.display = "block";
+            document.getElementById("input").style.display = "none";
+            document.getElementById("Confirmation").style.backgroundColor = "seagreen";
+
+            document.getElementById("name").innerHTML = "Name: " + fullName;
+            document.getElementById("email_out").innerHTML = "Email: " + email;
+            document.getElementById("number").innerHTML = "Phone No.: " + phoneNumber;
+
+            people = document.getElementById("people").value;
+            document.getElementById("first").innerHTML = "Number of people: " + people;
+            document.getElementById("second").innerHTML = "Price per head: Rs. "+price;
+
+            if (people > 4) {
+                var discountAmount = (people * price) * 0.1;
+                var totalAmount = (people * price) - discountAmount;
+                document.getElementById("third").innerHTML = people + " x "+price+" - 10%";
+                document.getElementById("fourth").innerHTML = "Total: Rs. " + totalAmount;
+                alert("You have received a special 10% discount for a booking of more than 4.");
+            } else {
+                var totalAmount = people * price;
+                document.getElementById("third").innerHTML = people + " x "+price;
+                document.getElementById("fourth").innerHTML = "Total: Rs. " + totalAmount;
+            }
+
+            var foodChoice = document.querySelector('input[name="Jain"]:checked').value;
+            document.getElementById("food").innerHTML = "Food: " + foodChoice;
+
+            // You can submit the form data using AJAX here
+            // Example: $.ajax({ ... });
+            
+
+        } else {
+            document.getElementById("warning").innerHTML = "Please enter all fields and a valid email address.";
+        }
+    }
+
+    function isValidEmail(email) {
+        var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return regex.test(email);
+    }
+
+    function Back() {
+        document.getElementById("input").style.display = "block";
+        document.getElementById("output").style.display = "none";
+        document.getElementById("Confirmation").style.backgroundColor = "darkseagreen";
+        document.getElementById("warning").innerHTML = "";
+    }
+    
+    function booknotnow(){
+      document.getElementById("booknow").style.opacity=0;
+      document.getElementById("booknow").style.zIndex=-5000;
+    }
+</script>
+
+
+<div style="position: fixed; margin-top: -73vh; margin-left: 20vw; transform: translate(10%,10%); z-index: -5000; box-shadow: 0px 0px 20000px 100px; background-color: #fff; width:80vw; height: 90vh; overflow-y: auto; opacity:0" class="container" id="booknow">
+  <div style="position: sticky; width: 100%; top: -2%; background-color: #fff;">
+  <button style="background-color: red; color: #fff;" onclick="booknotnow()">X</button>  
+  <center>
+    <button class="btn">Contact Details</button>
+    <button id="Confirmation" class="btn" style="background-color: darkseagreen;">Confirmation</button>
+    </center>
+  </div>
+    <div id="input">
+        <h4>Contact Details</h4>
+        <form id="myForm">
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" required />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+                <label for="phone_no">Phone No.</label>
+                <input type="tel" id="phone_no" name="phone_no" required />
+            </div>
+            <div class="form-group">
+                <label>Food Preference</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="Jain" value="Jain"> Jain</label>
+                    <label><input type="radio" name="Jain" value="Non-Jain"> Non Jain</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="people">Number of People</label>
+                <select id="people" name="people">
+                    <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                </select>
+            </div>
+            <center><button type="button" onclick="SubForm()">Submit</button></center>
+            <p id="warning"></p>
+        </form>
+    </div>
+    <div id="output">
+        <h4>Review Your Booking</h4>
+        <ul>
+            <li>Event Name</li>
+            <li id="name">Full Name</li>
+            <li id="email_out">Email</li>
+            <li id="number">Phone No.</li>
+            <li id="food">Food</li>
+        </ul>
+        <h4>Payment Details</h4>
+        <ul>
+            <li id="first"></li>
+            <li id="second"></li>
+            <li id="third"></li>
+            <li id="fourth"></li>
+        </ul>
+        <h4>Payment Methods</h4>
+        <button onclick="Back()" class="btn">Back</button>
+        <button class="btn">Pay Now</button>
+        
+    </div>
+</div>
+  <div style="box-shadow: 1px 1px 200px -100px; width: 70%; ">
+    <h1 style="position: absolute; margin-top: 20%; margin-left: 5%; color: #fff; z-index: 5;box-shadow: 5px 5px 200px -100px;">
       {{ object.name}}
       </h1>
-    <img src="{% static 'LOGO.png' %}" width="100%" alt="">
-    
-  </div>
-  <br>
-  <style>
+      <style>
     
         
         .carousel-inner {
@@ -56,8 +258,7 @@
         }
   </style>
   <center>
-    <h2>Gallery</h2>
-  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="color: black; width: 80%;">
+  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="color: black; width: 95%;">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">hiiii</button>
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">byee</button>
@@ -84,6 +285,10 @@
     </button>
   </div>
 </center>
+    
+  </div>
+  <br>
+  <div style="background-color: #fff;">
   <br>
   <h2>About {{ object.name }}</h2>
   <div style="box-shadow: 10px 10px 200px -100px; width: 70%; height: 50%; border-color: white; padding: 10%;">
@@ -91,7 +296,7 @@
       <li> {{ object.intro }}</li>
       <li>Difficulty: {{ object.difficulty }}</li>
       <li>Date: {{ object.date }}</li>
-      <li>Fees: Rs.{{ object.fees }}</li>
+      <li>Price: Rs.{{ object.fees }}</li>
     </ul>
   </div>
   <br>
@@ -149,4 +354,5 @@
             <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
           </svg></a>
   </div>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.07931841176!2d72.82962437395439!3d19.19173764833135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b72e2cf5a19d%3A0xbe3acd83444503!2sTechno%20Graphix!5e0!3m2!1sen!2sin!4v1719401531201!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  {{ object.map|safe }}
+  </div>
