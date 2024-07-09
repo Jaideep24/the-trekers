@@ -90,6 +90,7 @@
   </section>
   <center><h1>Trekking</h1></center>
   {% for object in trekking %}
+  {% if object.exclude == False %}
   <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1" >
         <h2 class="u-text u-text-default u-text-1">{{ object }}</h2>
@@ -137,9 +138,11 @@
         </div>
       </div>
     </section>
+    {% endif %}
     {% endfor %}
     <center><h1>Festival</h1></center>
     {% for object in festival %}
+    {% if object.exclude == False %}
     <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
           <h2 class="u-text u-text-default u-text-1">{{ object }}</h2>
@@ -185,9 +188,11 @@
           </div>
         </div>
       </section>
+      {% endif %}
       {% endfor %}
       <center><h1>Adventure</h1></center>
       {% for object in adventure %}
+      {% if object.exclude == False %}
   <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <h2 class="u-text u-text-default u-text-1">{{ object }}</h2>
@@ -233,6 +238,7 @@
         </div>
       </div>
     </section>
+    {% endif %}
     {% endfor %}  
     <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
@@ -527,8 +533,7 @@
                 let middlefirsthalf=`<div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
           <div class="u-container-layout u-similar-container u-container-layout-1" >
             
-            <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="{% static 'LOGO.png' %}">
-            <h4 class="u-align-center u-text u-text-2">`
+            `
               middlesecondhalf=` </h4>
           </div>
         </div>
@@ -568,7 +573,7 @@ if(bigarray['upcoming'].length!=0)
   for(let n=0;n<bigarray['upcoming'].length;n++)
   {
     if(bigarray['upcoming'][n]['trekking_id']!=null || bigarray['upcoming'][n]['adventure_id']!=null || bigarray['upcoming'][n]['festival_id']!=null){
-      everything=everything+'<a href="trek/'+bigarray['upcoming'][n]['id']+'">'+middlefirsthalf+bigarray['upcoming'][n]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['upcoming'][n]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['upcoming'][n]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['upcoming'][n]['name']+middlesecondhalf;
     }
     
   }
@@ -582,7 +587,7 @@ if(bigarray['trekking']['monsoon'].length!=0 || bigarray['trekking']['one day'].
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Monsoon</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['trekking']['monsoon'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['trekking']['monsoon'][o]['id']+'">'+middlefirsthalf+bigarray['trekking']['monsoon'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['trekking']['monsoon'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['trekking']['monsoon'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['trekking']['monsoon'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -591,7 +596,7 @@ if(bigarray['trekking']['monsoon'].length!=0 || bigarray['trekking']['one day'].
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Night</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['trekking']['night'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['trekking']['night'][o]['id']+'">'+middlefirsthalf+bigarray['trekking']['night'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['trekking']['night'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['trekking']['night'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['trekking']['night'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -600,7 +605,7 @@ if(bigarray['trekking']['monsoon'].length!=0 || bigarray['trekking']['one day'].
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">One Day</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['trekking']['one day'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['trekking']['one day'][o]['id']+'">'+middlefirsthalf+bigarray['trekking']['one day'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['trekking']['one day'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['trekking']['one day'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['trekking']['one day'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -609,7 +614,7 @@ if(bigarray['trekking']['monsoon'].length!=0 || bigarray['trekking']['one day'].
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Waterfall</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['trekking']['waterfall'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['trekking']['waterfall'][o]['id']+'">'+middlefirsthalf+bigarray['trekking']['waterfall'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['trekking']['waterfall'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['trekking']['waterfall'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['trekking']['waterfall'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -622,7 +627,7 @@ if(bigarray['festival']['fireflies'].length!=0 || bigarray['festival']['fruit'].
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Fireflies</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['festival']['fireflies'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['festival']['fireflies'][o]['id']+'">'+middlefirsthalf+bigarray['festival']['fireflies'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['festival']['fireflies'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['fireflies'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['fireflies'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -631,7 +636,7 @@ if(bigarray['festival']['fireflies'].length!=0 || bigarray['festival']['fruit'].
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Fruit</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['festival']['fruit'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['festival']['fruit'][o]['id']+'">'+middlefirsthalf+bigarray['festival']['fruit'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['festival']['fruit'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['fruit'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['fruit'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -640,7 +645,7 @@ if(bigarray['festival']['fireflies'].length!=0 || bigarray['festival']['fruit'].
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Kite</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['festival']['kite'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['festival']['kite'][o]['id']+'">'+middlefirsthalf+bigarray['festival']['kite'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['festival']['kite'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['kite'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['kite'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -649,7 +654,7 @@ if(bigarray['festival']['fireflies'].length!=0 || bigarray['festival']['fruit'].
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Turtal</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['festival']['turtal'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['festival']['turtal'][o]['id']+'">'+middlefirsthalf+bigarray['festival']['turtal'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['festival']['turtal'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['turtal'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['turtal'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -658,7 +663,7 @@ if(bigarray['festival']['fireflies'].length!=0 || bigarray['festival']['fruit'].
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">New Year</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['festival']['new year'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['festival']['new year'][o]['id']+'">'+middlefirsthalf+bigarray['festival']['new year'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['festival']['new year'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['new year'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['new year'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -667,7 +672,7 @@ if(bigarray['festival']['fireflies'].length!=0 || bigarray['festival']['fruit'].
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Holi</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['festival']['holi'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['festival']['holi'][o]['id']+'">'+middlefirsthalf+bigarray['festival']['holi'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['festival']['holi'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['holi'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['holi'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -680,7 +685,7 @@ if(bigarray['adventure']['rappling'].length!=0 || bigarray['adventure']['thrilli
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Rappling</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['adventure']['rappling'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['adventure']['rappling'][o]['id']+'">'+middlefirsthalf+bigarray['adventure']['rappling'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['adventure']['rappling'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['adventure']['rappling'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['adventure']['rappling'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -689,7 +694,7 @@ if(bigarray['adventure']['rappling'].length!=0 || bigarray['adventure']['thrilli
     everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Thrilling</h2>'+startingsecondhalf;
     for(let o=0;o<bigarray['adventure']['thrilling'].length;o++)
     {
-      everything=everything+'<a href="trek/'+bigarray['adventure']['thrilling'][o]['id']+'">'+middlefirsthalf+bigarray['adventure']['thrilling'][o]['name']+middlesecondhalf;
+      everything=everything+'<a href="trek/'+bigarray['adventure']['thrilling'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['adventure']['thrilling'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['adventure']['thrilling'][o]['name']+middlesecondhalf;
     }
     everything=everything+end;
   }
@@ -698,7 +703,7 @@ if(bigarray['cycling'].length!=0){
   everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Cycling</h2>'+startingsecondhalf;
   for(let p=0; p<bigarray['cycling'].length;p++)
   {
-    everything=everything+'<a href="cycling/'+bigarray['cycling'][p]['id']+'">'+middlefirsthalf+bigarray['cycling'][p]['name']+middlesecondhalf;
+    everything=everything+'<a href="cycling/'+bigarray['cycling'][p]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['cycling'][p]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['cycling'][p]['name']+middlesecondhalf;
   }
   everything=everything+end;
 }
@@ -706,7 +711,7 @@ if(bigarray['camping'].length!=0){
   everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Camping</h2>'+startingsecondhalf;
   for(let p=0; p<bigarray['camping'].length;p++)
   {
-    everything=everything+'<a href="camping/'+bigarray['camping'][p]['id']+'">'+middlefirsthalf+bigarray['camping'][p]['name']+middlesecondhalf;
+    everything=everything+'<a href="camping/'+bigarray['camping'][p]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['camping'][p]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['camping'][p]['name']+middlesecondhalf;
   }
   everything=everything+end;
 }
@@ -714,7 +719,7 @@ if(bigarray['tours'].length!=0){
   everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Tours</h2>'+startingsecondhalf;
   for(let p=0; p<bigarray['tours'].length;p++)
   {
-    everything=everything+'<a href="tours/'+bigarray['tours'][p]['id']+'">'+middlefirsthalf+bigarray['tours'][p]['name']+middlesecondhalf;
+    everything=everything+'<a href="tours/'+bigarray['tours'][p]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['tours'][p]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['tours'][p]['name']+middlesecondhalf;
   }
   everything=everything+end;
 }

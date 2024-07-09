@@ -1,8 +1,8 @@
 {% include 'trekkapp/Home.html' %}
 {% load static %}
-<div style="padding: 2%; position: fixed; z-index: 1000; margin-top: -19%; margin-left: 63%; box-shadow: 1px 1px 50px -10px; background-color: #fff; border-radius: 8px;">
-<form action="" method="post" >{% csrf_token %}<button class="btn btn-primary">Enquire</button></form>
-<br>
+<div style="padding: 2%; position: fixed; z-index: 1000; margin-top: -15%; margin-left: 77%; box-shadow: 1px 1px 50px -10px; background-color: #fff; border-radius: 8px;">
+<center><form action="" method="post" >{% csrf_token %}<button class="btn btn-primary">Enquire</button></form>
+</center>
 <script>
   function booknow(){
       document.getElementById("booknow").style.opacity=1;
@@ -10,10 +10,11 @@
     }
 </script>
 {% if object.upcoming %}
+<br>
 <button onclick="booknow()" class="btn btn-primary">Book Now</button>
 {% endif %}
 </div>
-<div style="position: fixed; margin: -15% 0% 0% 75%; box-shadow: 1px 1px 200px -100px;  padding: 5%;">
+<div style="position: fixed; margin: -9% 0% 0% 75%; box-shadow: 1px 1px 200px -100px;  padding: 5%;">
     <h3>Upcoming</h3>
   <ul>
     {% for i in cities %}

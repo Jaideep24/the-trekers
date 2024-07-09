@@ -7,16 +7,19 @@ from django.utils import timezone
 # Create your models here.
 class Trekking(models.Model):
     title=models.CharField(max_length=100)
+    exclude=models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
 class Festival(models.Model):
     title=models.CharField(max_length=100)
+    exclude=models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
 class Adventure(models.Model):
     title=models.CharField(max_length=100)
+    exclude=models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

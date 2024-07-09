@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 # Create your views here.
 
 def index(request):
-    print(City.objects.all().values())
+
     return render(request,'trekkapp/trekking.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
 
 class Detailedtrek(DetailView):
