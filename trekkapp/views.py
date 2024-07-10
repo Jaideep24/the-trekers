@@ -22,7 +22,7 @@ class Detailedtrek(DetailView):
     def get_context_data(self, **kwargs):
         context = super(Detailedtrek,self).get_context_data(**kwargs)
         context["cities"]=City.objects.all()
-        context["Gallery"]=Gallery.objects.all()
+        context["Gallery"]=Gallery.objects.all().filter(city=self.get_object())
         self.object=self.get_object()
         print(self.object.trekking)
         context["form"]=EnquireForm(initial={'thetrek':self.object.__dict__})
@@ -62,6 +62,7 @@ class DetailedCycle(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailedCycle,self).get_context_data(**kwargs)
         context["cities"]=City.objects.all()
+        context["Gallery"]=Gallery.objects.all().filter(cycling=self.get_object())
         context["form"]=EnquireForm(initial={'thetrek':self.object})
         return context
     
@@ -100,6 +101,7 @@ class DetailedCamp(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailedCamp,self).get_context_data(**kwargs)
         context["cities"]=City.objects.all()
+        context["Gallery"]=Gallery.objects.all().filter(camping=self.get_object())
         context["form"]=EnquireForm(initial={'thetrek':self.object})
         return context
     def post(self, request, **kwargs):
@@ -136,6 +138,7 @@ class Detailedtour(DetailView):
     def get_context_data(self, **kwargs):
         context = super(Detailedtour,self).get_context_data(**kwargs)
         context["cities"]=City.objects.all()
+        context["Gallery"]=Gallery.objects.all().filter(tours=self.get_object())
         context["form"]=EnquireForm(initial={'thetrek':self.object})
         return context
     
