@@ -110,3 +110,10 @@ class personaltrek(models.Model):
     message=models.TextField()
     def __str__(self):
         return self.name
+
+class Gallery(models.Model):
+    image=models.ImageField(default="LOGO.png")
+    city=models.ForeignKey(City, on_delete=models.CASCADE, blank=True, default=None, null=True)
+    cycling=models.ForeignKey(Cycling, on_delete=models.CASCADE, blank=True, default=None, null=True)
+    camping=models.ForeignKey(Camping, on_delete=models.CASCADE, blank=True, default=None, null=True)
+    tours=models.ForeignKey(Tours, on_delete=models.CASCADE, blank=True, default=None, null=True)

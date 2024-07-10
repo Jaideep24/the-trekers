@@ -22,6 +22,7 @@ class Detailedtrek(DetailView):
     def get_context_data(self, **kwargs):
         context = super(Detailedtrek,self).get_context_data(**kwargs)
         context["cities"]=City.objects.all()
+        context["Gallery"]=Gallery.objects.all()
         self.object=self.get_object()
         print(self.object.trekking)
         context["form"]=EnquireForm(initial={'thetrek':self.object.__dict__})

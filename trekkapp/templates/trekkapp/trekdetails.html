@@ -1,22 +1,21 @@
 {% include 'trekkapp/Home.html' %}
 {% load static %}
-<div style="padding: 2%; position: fixed; z-index: 1000; margin-top: -15%; margin-left: 77%; box-shadow: 1px 1px 50px -10px; background-color: #fff; border-radius: 8px;">
-<center><form action="" method="post" >{% csrf_token %}<button class="btn btn-primary">Enquire</button></form>
-</center>
-<script>
-  function booknow(){
-      document.getElementById("booknow").style.opacity=1;
-      document.getElementById("booknow").style.zIndex=5000;
-    }
-</script>
-{% if object.upcoming %}
-<br>
-<button onclick="booknow()" class="btn btn-primary">Book Now</button>
-{% endif %}
-</div>
-<div style="position: fixed; margin: -9% 0% 0% 75%; box-shadow: 1px 1px 200px -100px;  padding: 5%;">
-    <h3>Upcoming</h3>
-  <ul>
+
+<div style="position: fixed; margin: -15% 0% 0% 75%; box-shadow: 1px 1px 200px -100px; height: 50%; padding: 2%;overflow-y: scroll;">
+  <center><form action="" method="post" >{% csrf_token %}<button class="btn btn-primary">Enquire</button></form>
+  </center>
+  <script>
+    function booknow(){
+        document.getElementById("booknow").style.opacity=1;
+        document.getElementById("booknow").style.zIndex=5000;
+      }
+  </script>
+  {% if object.upcoming %}
+  
+  <center><button onclick="booknow()" class="btn btn-primary" style="margin-top: 3px;">Book Now</button></center>
+  {% endif %}
+    <h3 style="margin: 5px;">Upcoming</h3>
+  <ul style="margin: 5px;">
     {% for i in cities %}
     {% if i.upcoming == True %}
     <li><a href="{% url 'detail_article' i.pk %}">{{ i.name }}</a></li>
@@ -140,6 +139,7 @@
       document.getElementById("booknow").style.opacity=0;
       document.getElementById("booknow").style.zIndex=-5000;
     }
+    
 </script>
 
 
@@ -231,9 +231,7 @@
             color: #fff; /* Text color for carousel inner */
         }
         
-        .carousel-item img {
-            filter: grayscale(100); /* Grayscale images in the carousel */
-        }
+        
         
         /* Ensure the carousel control buttons are visible */
         .carousel-control-prev, .carousel-control-next {
@@ -257,30 +255,57 @@
             position: relative; /* Ensure absolute positioning within */
             padding-top: 30%;
         }
+        
   </style>
   <center>
-  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="color: black; width: 95%;">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">hiiii</button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">byee</button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
+    <style>
+      .pop{
+        position: fixed;
+        z-index: 10000;
+        box-shadow: 0px 0px 20000px 100px;
+      }
+    </style>
+    <script>
+      function popup()
+      {
+        document.getElementById("carouselExampleAutoplaying").classList.add("pop");
+        document.getElementById("cross").style.opacity=1;
+       
+      }
+      function popno()
+      {
+        document.getElementById("carouselExampleAutoplaying").classList.remove("pop");
+        document.getElementById("cross").style.opacity=0;
+      }
+      function handleClickOutside(event) {
+        const targetElement = document.getElementById('carouselExampleAutoplaying');
+        
+        
+        // Check if the click was outside the target element
+        if (!targetElement.contains(event.target)) {
+          document.getElementById("carouselExampleAutoplaying").classList.remove("pop");
+        document.getElementById("cross").style.opacity=0;  // Show the message or perform your action
+        } 
+    }
+    document.addEventListener('click', handleClickOutside);
+    </script>
+  <div  id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="color: black; width: 95%; top: 12%; left: 2%;">
+    <div onclick="popno()" id="cross" style="position: absolute; margin-left: 95%;  margin-top: -5%; color:#fff; opacity: 0;"><button style="background-color: red; color: #fff; border-radius: 50%; " class="btn" >X</button></div>
+    <div onclick="popup()" class="carousel-inner">
       <div class="carousel-item active">
-        <img src="{% static 'LOGO.png' %}" class="d-block w-100" alt="...">
+        <img src="https://i.pinimg.com/736x/cb/64/33/cb643340343d0f6259fdd7492d9fb000.jpg" style="width: 100%; height: 70vh;" class="d-block w-100" alt="...">
       </div>
+      {% for photo in Gallery %}
       <div class="carousel-item">
-        <img src="{% static 'LOGO.png' %}" class="d-block w-100" alt="...">
+        <img src="/media/{{ photo.image }}" style=" height: 80vh;" class="d-block w-100" alt="...">
       </div>
-      <div class="carousel-item">
-        <img src="{% static 'LOGO.png' %}" class="d-block w-100" alt="...">
-      </div>
+      {% endfor %}
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+    <button style="border-radius: 50%; opacity: 0.5; margin-top: 20%; background-color: black; color: white; height: 9vh; width: 9vh;" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+    <button style="border-radius: 50%; opacity: 0.5; margin-top: 20%; background-color: black; color: white; height: 9vh; width: 9vh;" class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
