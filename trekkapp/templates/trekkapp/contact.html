@@ -8,6 +8,7 @@
 {% if failure %}
 <div class="btn btn-warning">The form was not submitted error</div>
 {% endif %}
+{{ form.errors.as_p }}
 <center>
 <div style="width: 70%;" class="btn btn-warning"><form action="" method="post">
     {% csrf_token %}

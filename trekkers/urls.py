@@ -31,5 +31,6 @@ urlpatterns = [
     path('api/camping',data_camping),
     path('api/cycling',data_cycling),
     path('api/tours',data_tours),
+    path('about',about),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

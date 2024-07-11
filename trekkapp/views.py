@@ -15,6 +15,9 @@ def index(request):
 
     return render(request,'trekkapp/trekking.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
 
+def about(request):
+    return render(request,'trekkapp/About.html')
+
 class Detailedtrek(DetailView):
     model=City
     template_name="trekkapp/trekdetails.html"

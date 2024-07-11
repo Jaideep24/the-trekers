@@ -2,7 +2,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.utils import timezone
-
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 class Trekking(models.Model):
@@ -91,14 +91,14 @@ class Tours(models.Model):
 class contact(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField()
-    number=models.IntegerField(max_length=10)
+    number=PhoneNumberField(blank=True,null=True, region='IN')
     message=models.TextField()
     def __str__(self):
         return self.name
 class enquire(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField()
-    number=models.IntegerField(max_length=10)
+    number=PhoneNumberField(blank=True,null=True, region='IN')
     message=models.TextField()
     thetrek=models.CharField(max_length=10000)
     def __str__(self):
@@ -106,7 +106,7 @@ class enquire(models.Model):
 class personaltrek(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField()
-    number=models.IntegerField(max_length=10)
+    number=PhoneNumberField(blank=True,null=True, region='IN')
     message=models.TextField()
     def __str__(self):
         return self.name
