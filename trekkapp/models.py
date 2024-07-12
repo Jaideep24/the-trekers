@@ -3,7 +3,24 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
+from tinymce.models import HTMLField
 
+class Article(models.Model):
+    title = models.CharField(max_length=255)
+    content = HTMLField()
+    date = models.DateField(auto_now_add=True)
+    image=models.ImageField( default="default-ui-image-placeholder-wireframes-600nw-1037719192 (1).png")
+    likes=models.IntegerField(blank=True, null=True, default=0)
+
+    def __str__(self):
+        return self.title
+class Comment(models.Model):
+    name=models.TextField(blank=False,default=" ")
+    comment=models.TextField()
+    article=models.ForeignKey(Article,on_delete=models.CASCADE)
+class Logger(models.Model):
+    user_name=models.CharField(max_length=25)
+    password=models.CharField(max_length=100)
 # Create your models here.
 class Trekking(models.Model):
     title=models.CharField(max_length=100)

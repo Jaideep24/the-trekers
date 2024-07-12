@@ -32,5 +32,11 @@ urlpatterns = [
     path('api/cycling',data_cycling),
     path('api/tours',data_tours),
     path('about',about),
+    path('blogspot/',Blogspot.as_view(),name='blogspot'),
+    path('<int:pk>/', DetailArticleView.as_view(), name='detail_blog'),
+    path('<int:pk>/delete', DeleteArticleView.as_view(), name='delete_article'),
+    path('create/', CreateBlogView.as_view(), name='create_blog'),
+    path('edit/', view, name='login'),
+    path('<int:pk>/update',UpdateBlogView.as_view(),name='updateview'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

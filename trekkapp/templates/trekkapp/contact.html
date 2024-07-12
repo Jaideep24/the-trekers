@@ -9,10 +9,34 @@
 <div class="btn btn-warning">The form was not submitted error</div>
 {% endif %}
 {{ form.errors.as_p }}
+<style>
+    .form-floating{
+        box-shadow: 0px 0px 200px -100px; 
+    }
+</style>
 <center>
-<div style="width: 70%;" class="btn btn-warning"><form action="" method="post">
+<div style="width: 70%; max-width: 500px;" ><form action="" method="post" style="padding: 10px;" class="card form-floating">
+    
     {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-warning">Submit</button>
-    </form>
+        
+    <p class="form-floating"> 
+        <input type="text" name="name" class="form-control" required="true"  id="floatingInput" placeholder="Name">
+        <label for="floatingInput">Name</label>
+    </p>
+    <p class="form-floating">
+        
+        <input type="text" name="email" class="form-control" required="" maxlength="320" id="id_email" placeholder="Email">
+        <label for="id_email" >Email:</label> 
+    </p>
+    <p class="form-floating"> 
+        <input class="form-control" type="tel" name="number" maxlength="128" id="id_number" placeholder="Number">
+        <label for="id_number">Number:</label>
+    </p>
+    <p class="form-floating"> 
+        <textarea class="form-control" name="message" cols="40" rows="10" class="form-control" required="" id="id_message" placeholder="Messafe"></textarea>
+        <label for="id_message">Message:</label>
+    </p>
+        <button type="submit" class="btn btn-warning">Submit</button>
+        </form>
+    
 </div></center>
