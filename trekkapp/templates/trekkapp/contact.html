@@ -3,7 +3,9 @@
 
 {% load static %}
 {% if success %}
-<div class="btn btn-success">The form was submitted successfully</div>
+<script>
+    alert("Form submitted successfully!")
+</script>
 {% endif %}
 {% if failure %}
 <div class="btn btn-warning">The form was not submitted error</div>
@@ -11,17 +13,23 @@
 {% endif %}
 {% if number %}
 <script>
-    alert("the number is incorrect error");
+    alert("The number is incorrect error");
 </script>
 
 {% endif %}
 {% if email %}
 <script>
-    alert("the email is incorrect error");
+    alert("The email is incorrect error");
 </script>
 
 {% endif %}
-{{ form.errors.as_p }}
+{% if captcha %}
+<script>
+    alert("Captcha failedr");
+</script>
+
+{% endif %}
+
 <style>
     .form-floating{
         box-shadow: 0px 0px 200px -100px; 
@@ -50,6 +58,7 @@
         <textarea class="form-control" name="message" cols="40" rows="10" class="form-control" required="" id="id_message" placeholder="Messafe"></textarea>
         <label for="id_message">Message:</label>
     </p>
+    <div class="g-recaptcha" data-sitekey="6LegtRAqAAAAALIbBVLcMgknVNJfrrfSShTFJ9DX"></div>
         <button type="submit" class="btn btn-warning">Submit</button>
         </form>
     

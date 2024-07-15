@@ -1,5 +1,6 @@
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
+import requests
 from django.views import View
 from django.views.generic import ListView, DetailView, DeleteView, TemplateView, UpdateView
 from django.urls import reverse_lazy
@@ -10,7 +11,17 @@ from .forms import *
 from .models import *
 from django.core.mail import send_mail
 import re
+from django.conf import settings
 # Create your views here.
+def verify_recaptcha(recaptcha_response):
+    secret_key = settings.RECAPTCHA_SECRET_KEY
+    payload = {
+        'secret': secret_key,
+        'response': recaptcha_response
+    }
+    response = requests.post('https://www.google.com/recaptcha/api/siteverify', data=payload)
+    result = response.json()
+    return result.get('success')
 
 def index(request):
 
@@ -177,43 +188,58 @@ class Detailedtour(DetailView):
 def contact(request):
     if request.method=='POST':
         form=ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-            recipient_email = 'jaideep.technographix@gmail.com'
-            subject = 'the trekers contact'
-            message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}"
-            from_email = form.cleaned_data['email']  # Replace with your email address
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        if verify_recaptcha(recaptcha_response):
+            if form.is_valid():
+                form.save()
+                recipient_email = 'jaideep.technographix@gmail.com'
+                subject = 'the trekers contact'
+                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}"
+                from_email = form.cleaned_data['email']  # Replace with your email address
 
-             # Send email
-            send_mail(subject, message, from_email, [recipient_email])
-            return render(request,'trekkapp/contact.html',{'form':ContactForm,'success':True})
+                # Send email
+                send_mail(subject, message, from_email, [recipient_email])
+                return render(request,'trekkapp/contact.html',{'form':ContactForm,'success':True})
+            else:
+                pattern=r"^(?:\+91|91)?[789]\d{9}$"
+                emailpattern=r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                if(re.match(pattern,request.POST['number'])==None):
+                    return render(request,'trekkapp/contact.html',{'form':ContactForm,'number':True})
+                elif(re.match(emailpattern,request.POST['email'])==None):
+                    return render(request,'trekkapp/contact.html',{'form':ContactForm,'email':True})
+                else:
+                    return render(request,'trekkapp/contact.html',{'form':ContactForm,'failure':True})
         else:
-            return render(request,'trekkapp/contact.html',{'form':ContactForm,'failure':True})
+            return render(request,'trekkapp/contact.html',{'form':ContactForm,'captcha':True})
     else:
         return render(request,'trekkapp/contact.html',{'form':ContactForm})
 
 def personal(request):
     if request.method=='POST':
-        form=ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-            recipient_email = 'jaideep.technographix@gmail.com'
-            subject = 'the trekers custom trek'
-            message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}"
-            from_email = form.cleaned_data['email']  # Replace with your email address
+        form=PersonalForm(request.POST)
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        if verify_recaptcha(recaptcha_response):
+            if form.is_valid():
+                form.save()
+                recipient_email = 'jaideep.technographix@gmail.com'
+                subject = 'the trekers custom trek'
+                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}"
+                from_email = form.cleaned_data['email']  # Replace with your email address
 
-            # Send email
-            send_mail(subject, message, from_email, [recipient_email])
-            return render(request,'trekkapp/contact.html',{'form':PersonalForm,'success':True})
+                # Send email
+                send_mail(subject, message, from_email, [recipient_email])
+                return render(request,'trekkapp/contact.html',{'form':PersonalForm,'success':True})
+            else:
+                pattern=r"^(?:\+91|91)?[789]\d{9}$"
+                emailpattern=r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                if(re.match(pattern,request.POST['number'])==None):
+                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,'number':True})
+                elif(re.match(emailpattern,request.POST['email'])==None):
+                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,'email':True})
+                else:
+                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,'failure':True})
         else:
-            print(request.POST)
-            pattern=r"^(?:\+91|91)?[789]\d{9}$"
-            emailpattern=r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
-            if(re.match(pattern,request.POST['number'][0])==None):
-                return render(request,'trekkapp/contact.html',{'form':PersonalForm,'number':True})
-            elif(re.match(emailpattern,request.POST['email'][0])==None):
-                return render(request,'trekkapp/contact.html',{'form':PersonalForm,'email':True})
-            return render(request,'trekkapp/contact.html',{'form':PersonalForm,'failure':True})
+            return render(request,'trekkapp/contact.html',{'form':ContactForm,'captcha':True})
     else:
         return render(request,'trekkapp/contact.html',{'form':PersonalForm})
 

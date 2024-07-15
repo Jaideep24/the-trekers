@@ -20,6 +20,10 @@ EMAIL_USE_TLS = True  # Enable TLS encryption
 EMAIL_HOST_USER = 'jaideep.technographix@gmail.com'  # Replace with your email address
 EMAIL_HOST_PASSWORD = 'alxw symo nype ohdd'  # Replace with your email password or app password
 
+
+RECAPTCHA_PUBLIC_KEY = '6LegtRAqAAAAALIbBVLcMgknVNJfrrfSShTFJ9DX'
+RECAPTCHA_SECRET_KEY = '6LegtRAqAAAAAOKkSfis3bevqUNkLIkc9nm2Cl4F'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -48,6 +52,7 @@ INSTALLED_APPS = [
     'trekkapp',
     'crispy_forms',
     'crispy_bootstrap4',
+    'captcha',
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,7 @@
 from django import forms
 from .models import *
 
+
 class ContactForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'true','style': 'max-width: 100%; width: auto;'}))
     email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'true','style': 'max-width: 100%; width: auto;'}))
