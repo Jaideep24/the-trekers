@@ -9,6 +9,7 @@ import json
 from .forms import *
 from .models import *
 from django.core.mail import send_mail
+import re
 # Create your views here.
 
 def index(request):
@@ -205,6 +206,13 @@ def personal(request):
             send_mail(subject, message, from_email, [recipient_email])
             return render(request,'trekkapp/contact.html',{'form':PersonalForm,'success':True})
         else:
+            print(request.POST)
+            pattern=r"^(?:\+91|91)?[789]\d{9}$"
+            emailpattern=r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+            if(re.match(pattern,request.POST['number'][0])==None):
+                return render(request,'trekkapp/contact.html',{'form':PersonalForm,'number':True})
+            elif(re.match(emailpattern,request.POST['email'][0])==None):
+                return render(request,'trekkapp/contact.html',{'form':PersonalForm,'email':True})
             return render(request,'trekkapp/contact.html',{'form':PersonalForm,'failure':True})
     else:
         return render(request,'trekkapp/contact.html',{'form':PersonalForm})
