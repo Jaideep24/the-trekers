@@ -38,5 +38,6 @@ urlpatterns = [
     path('create/', CreateBlogView.as_view(), name='create_blog'),
     path('edit/', view, name='login'),
     path('<int:pk>/update',UpdateBlogView.as_view(),name='updateview'),
+    path('captcha/', captcha_image, name='captcha_image'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

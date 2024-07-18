@@ -49,17 +49,54 @@
         
         <input type="text" name="email" class="form-control" required="" maxlength="320" id="id_email" placeholder="Email">
         <label for="id_email" >Email:</label> 
+        <div id="emailcheck"></div>
     </p>
     <p class="form-floating"> 
         <input class="form-control" type="tel" name="number" maxlength="128" id="id_number" placeholder="Number">
         <label for="id_number">Number:</label>
+        <div id="numcheck"></div>
     </p>
     <p class="form-floating"> 
         <textarea class="form-control" name="message" cols="40" rows="10" class="form-control" required="" id="id_message" placeholder="Messafe"></textarea>
         <label for="id_message">Message:</label>
     </p>
     <div class="g-recaptcha" data-sitekey="6LegtRAqAAAAALIbBVLcMgknVNJfrrfSShTFJ9DX"></div>
+    <p class="form-floating">
+        </p>
         <button type="submit" class="btn btn-warning">Submit</button>
         </form>
-    
+    <script>
+    function validatePhoneNumber(phone) {
+                const phoneRegex = /^(?:\+91|91)?[789]\d{9}$/;
+                return phoneRegex.test(phone);
+            }
+        function isValidEmail(email) {
+            var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            return regex.test(email);
+        }
+    document.getElementById("id_email").addEventListener('input',function(){
+        console.log("this");
+        if(isValidEmail(document.getElementById("id_email").value))
+        {
+          document.getElementById("emailcheck").innerText="Email Valid";
+          document.getElementById("emailcheck").style.color="green";
+        }
+        else
+        {
+          document.getElementById("emailcheck").innerText="Email Invalid";
+          document.getElementById("emailcheck").style.color="red";
+        }
+      });
+      document.getElementById('id_number').addEventListener('input',function(){
+        
+        if(validatePhoneNumber(document.getElementById('id_number').value)){
+          document.getElementById('numcheck').innerText="Number Valid";
+          document.getElementById("numcheck").style.color="green";
+        }
+        else
+        {
+          document.getElementById('numcheck').innerText="Number Invalid";
+          document.getElementById("numcheck").style.color="red";
+        }
+      });</script>
 </div></center>

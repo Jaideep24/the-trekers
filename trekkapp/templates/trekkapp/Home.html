@@ -43320,7 +43320,55 @@ a.u-link.u-text-hover-grey-90:hover {
           document.getElementById("booknow").style.zIndex=-5000;
         }
         
-        
+        function checkingemail()
+        {
+          if(isValidEmail(document.getElementById("email").value))
+          {
+            document.getElementById("emailcheck").innerText="Email Valid";
+            document.getElementById("emailcheck").style.color="green";
+          }
+          else
+          {
+            document.getElementById("emailcheck").innerText="Email Invalid";
+            document.getElementById("emailcheck").style.color="red";
+          }
+        }
+        function checkingnum()
+        {
+          if(validatePhoneNumber(document.getElementById('phone_no'))){
+            document.getElementById('numcheck').innerText="Number Valid";
+            document.getElementById("numcheck").style.color="green";
+          }
+          else
+          {
+            document.getElementById('numcheck').innerText="Number Invalid";
+            document.getElementById("numcheck").style.color="red";
+          }
+        }
+        document.getElementById("email").addEventListener('input',function(){
+          console.log("this");
+          if(isValidEmail(document.getElementById("email").value))
+          {
+            document.getElementById("emailcheck").innerText="Email Valid";
+            document.getElementById("emailcheck").style.color="green";
+          }
+          else
+          {
+            document.getElementById("emailcheck").innerText="Email Invalid";
+            document.getElementById("emailcheck").style.color="red";
+          }
+        });
+        document.getElementById('phone_no').addEventListener('input',function(){
+          if(validatePhoneNumber(document.getElementById('phone_no'))){
+            document.getElementById('numcheck').innerText="Number Valid";
+            document.getElementById("numcheck").style.color="green";
+          }
+          else
+          {
+            document.getElementById('numcheck').innerText="Number Invalid";
+            document.getElementById("numcheck").style.color="red";
+          }
+        });
     </script>
     
     
@@ -43342,6 +43390,7 @@ a.u-link.u-text-hover-grey-90:hover {
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required />
+                    <p id="emailcheck"></p>
                 </div>
                 <div class="form-group">
                     <label for="phone_no">Phone Number:</label>
@@ -43349,6 +43398,7 @@ a.u-link.u-text-hover-grey-90:hover {
                    pattern="^(?:\+91|91)?[789]\d{9}$" 
                    title="Please enter a valid 10-digit Indian phone number, optionally starting with +91 or 91." 
                    required>
+                   <p id="numcheck"></p>
                 </div>
                 <div class="form-group">
                     <label>Food Preference</label>
@@ -43397,9 +43447,50 @@ a.u-link.u-text-hover-grey-90:hover {
                 <li id="third"></li>
                 <li id="fourth"></li>
             </ul>
+            
+        
+       
+        <script>
+          function captchareload(){
+            var timestamp = new Date().getTime();
+            // Append a timestamp to the URL to force a reload
+            document.getElementById("captchaimage").src = "{% url 'captcha_image' %}" + "?t=" + timestamp;
+            
+          }
+          document.getElementById("email").addEventListener('input',function(){
+          console.log("this");
+          if(isValidEmail(document.getElementById("email").value))
+          {
+            document.getElementById("emailcheck").innerText="Email Valid";
+            document.getElementById("emailcheck").style.color="green";
+          }
+          else
+          {
+            document.getElementById("emailcheck").innerText="Email Invalid";
+            document.getElementById("emailcheck").style.color="red";
+          }
+        });
+        document.getElementById('phone_no').addEventListener('input',function(){
+          
+          if(validatePhoneNumber(document.getElementById('phone_no').value)){
+            document.getElementById('numcheck').innerText="Number Valid";
+            document.getElementById("numcheck").style.color="green";
+          }
+          else
+          {
+            document.getElementById('numcheck').innerText="Number Invalid";
+            document.getElementById("numcheck").style.color="red";
+          }
+        });
+        </script>
             <h4>Payment Methods</h4>
             <button onclick="Back()" class="btn">Back</button>
-            <button class="btn">Pay Now</button>
+            <form action="" method="post">{% csrf_token %}
+              <img src="{% url 'captcha_image' %}" alt="CAPTCHA" id="captchaimage"/>
+            <button type="button" onclick="captchareload()">Reload captcha</button>
+            <label for="captcha">Enter CAPTCHA:</label>
+        <input class="form-control" type="text" id="captcha" name="captchasubmit" required /><button class="btn" name="captcha" value="hi">Pay Now</button></form>
+            
             
         </div>
     </div>

@@ -4,7 +4,7 @@ import requests
 from django.views import View
 from django.views.generic import ListView, DetailView, DeleteView, TemplateView, UpdateView
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 import json
 from .forms import *
@@ -12,7 +12,86 @@ from .models import *
 from django.core.mail import send_mail
 import re
 from django.conf import settings
+from PIL import Image, ImageDraw, ImageFont, ImageOps
+import random
+import string
+from io import BytesIO
 # Create your views here.
+def generate_captcha_text(length=6):
+    excluded_characters = 'Il1O0'
+    
+    # Create a pool of characters, excluding the unwanted ones
+    characters = ''.join(c for c in string.ascii_letters + string.digits if c not in excluded_characters)
+    return ''.join(random.choice(characters) for _ in range(length))
+
+def create_captcha_image(text, width=200, height=60, font_size=36):
+    # Create an image with white background
+    # Create an image with white background
+    image = Image.new('RGBA', (width, height), (255, 255, 255, 255))  # Use RGBA for alpha channel
+    draw = ImageDraw.Draw(image)
+    
+    # Load a font
+    try:
+        font = ImageFont.truetype("arial.ttf", font_size)
+    except IOError:
+        font = ImageFont.load_default()
+    
+    # Create a temporary image to draw text
+    temp_image = Image.new('RGBA', (width, height), (255, 255, 255, 0))  # Transparent background
+    temp_draw = ImageDraw.Draw(temp_image)
+    
+    # Draw the text on the temporary image
+    text_width, text_height = temp_draw.textsize(text, font=font)
+    text_x = (width - text_width) / 2
+    text_y = (height - text_height) / 2
+    temp_draw.text((text_x, text_y), text, font=font, fill=(0, 0, 0, 255))  # Black text
+    
+    # Rotate or skew the text randomly
+    angle = random.uniform(-10, 10)  # Random rotation angle between -20 and 20 degrees
+    rotated_image = temp_image.rotate(angle, expand=True)
+    
+    # Convert rotated image to RGBA to ensure transparency
+    rotated_image = rotated_image.convert('RGBA')
+    
+    # Paste the rotated image onto the main image with some random offset
+    
+    image.paste(rotated_image, (0,-20), rotated_image)  # Use rotated_image as mask
+
+    # Draw horizontal lines
+    num_lines = random.randint(2, 4)  # Random number of lines
+    for _ in range(num_lines):
+        line_y = random.randint(10, height - 10)
+        line_thickness = random.randint(2, 3)  # Random line thickness
+        draw.line([(0, line_y), (width, line_y)], fill=(0, 0, 0, 100), width=line_thickness)
+    
+    # Optionally add noise
+    for _ in range(100):
+        x = random.randint(0, width - 1)
+        y = random.randint(0, height - 1)
+        draw.point((x, y), fill=(0, 0, 0))
+    
+    # Save image to a BytesIO object
+    buffer = BytesIO()
+    image.save(buffer, format='PNG')
+    buffer.seek(0)
+    return buffer
+
+def captcha_image(request):
+    # Generate random CAPTCHA text
+    captcha_text = generate_captcha_text()
+    
+    # Create CAPTCHA image
+    image_buffer = create_captcha_image(captcha_text)
+    
+    # Return the image as a response
+    response = HttpResponse(image_buffer, content_type='image/png')
+    
+    # Optionally, store the CAPTCHA text in the session or elsewhere
+    request.session['captcha_text'] = captcha_text
+    
+    return response
+
+
 def verify_recaptcha(recaptcha_response):
     secret_key = settings.RECAPTCHA_SECRET_KEY
     payload = {
@@ -46,28 +125,41 @@ class Detailedtrek(DetailView):
     def post(self, request, **kwargs):
         print(request.POST)
         if 'name' in request.POST:
-            self.object = self.get_object()
-            print(self.object)
-            
-            form = EnquireForm(request.POST)
-            print(form)
-            print(request.POST)
-            if form.is_valid():
-                print("its valid")
-                inquiry = form.save(commit=False)
-                inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
-                inquiry.save()
-                recipient_email = 'jaideep.technographix@gmail.com'
-                subject = 'the trekers enquiry'
-                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {self.object.__dict__}"
-                from_email = form.cleaned_data['email']  # Replace with your email address
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            if verify_recaptcha(recaptcha_response):
+                self.object = self.get_object()
+                print(self.object)
+                
+                form = EnquireForm(request.POST)
+                print(form)
+                print(request.POST)
+                if form.is_valid():
+                    print("its valid")
+                    inquiry = form.save(commit=False)
+                    inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
+                    inquiry.save()
+                    recipient_email = 'jaideep.technographix@gmail.com'
+                    subject = 'the trekers enquiry'
+                    message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: {self.object.__dict__}"
+                    from_email = form.cleaned_data['email']  # Replace with your email address
 
-                # Send email
-                send_mail(subject, message, from_email, [recipient_email])
+                    # Send email
+                    send_mail(subject, message, from_email, [recipient_email])
+                    return HttpResponseRedirect(self.request.path_info)
+                else:
+                    print(form.errors)  # Print form errors to console for debugging
+                    return render(request, 'trekkapp/contact.html', {'form': form})
+        elif 'captchasubmit' in request.POST:
+            print("it works")
+            user_input = request.POST.get('captcha')
+            captcha_text = request.session.get('captcha_text')
+            print(request.POST.get('captcha'))
+            print(request.session)
+            if user_input == captcha_text:
+                print("hi")
                 return HttpResponseRedirect(self.request.path_info)
             else:
-                print(form.errors)  # Print form errors to console for debugging
-                return render(request, 'trekkapp/contact.html', {'form': form})
+                return render(request, 'trekkapp/contact.html', {'form': EnquireForm})
         else:
              return render(request, 'trekkapp/contact.html', {'form': EnquireForm})
 class DetailedCycle(DetailView):
@@ -85,28 +177,39 @@ class DetailedCycle(DetailView):
     def post(self, request, **kwargs):
         print(request.POST)
         if 'name' in request.POST:
-            self.object = self.get_object()
-            print(self.object)
-            
-            form = EnquireForm(request.POST)
-            print(form)
-            print(request.POST)
-            if form.is_valid():
-                print("its valid")
-                inquiry = form.save(commit=False)
-                inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
-                inquiry.save()
-                recipient_email = 'jaideep.technographix@gmail.com'
-                subject = 'the trekers enquiry'
-                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: { self.object.__dict__}"
-                from_email = form.cleaned_data['email']  # Replace with your email address
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            if verify_recaptcha(recaptcha_response):
+                self.object = self.get_object()
+                print(self.object)
+                
+                form = EnquireForm(request.POST)
+                print(form)
+                print(request.POST)
+                if form.is_valid():
 
-                # Send email
-                send_mail(subject, message, from_email, [recipient_email])
+                    print("its valid")
+                    inquiry = form.save(commit=False)
+                    inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
+                    inquiry.save()
+                    recipient_email = 'jaideep.technographix@gmail.com'
+                    subject = 'the trekers enquiry'
+                    message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: { self.object.__dict__}"
+                    from_email = form.cleaned_data['email']  # Replace with your email address
+
+                    # Send email
+                    send_mail(subject, message, from_email, [recipient_email])
+                    return HttpResponseRedirect(self.request.path_info)
+                else:
+                    print(form.errors)  # Print form errors to console for debugging
+                    return render(request, 'trekkapp/contact.html', {'form': form})
+        elif 'captchasubmit' in request.POST:
+            print("it works")
+            user_input = request.POST.get('captcha')
+            captcha_text = request.session.get('captcha_text')
+        
+            if user_input == captcha_text:
+                print("hi")
                 return HttpResponseRedirect(self.request.path_info)
-            else:
-                print(form.errors)  # Print form errors to console for debugging
-                return render(request, 'trekkapp/contact.html', {'form': form})
         else:
              return render(request, 'trekkapp/contact.html', {'form': EnquireForm})
 class DetailedCamp(DetailView):
@@ -122,28 +225,37 @@ class DetailedCamp(DetailView):
     def post(self, request, **kwargs):
         print(request.POST)
         if 'name' in request.POST:
-            self.object = self.get_object()
-            print(self.object)
-            
-            form = EnquireForm(request.POST)
-            print(form)
-            print(request.POST)
-            if form.is_valid():
-                print("its valid")
-                inquiry = form.save(commit=False)
-                inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
-                inquiry.save()
-                recipient_email = 'jaideep.technographix@gmail.com'
-                subject = 'the trekers enquiry'
-                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: { self.object.__dict__}"
-                from_email = form.cleaned_data['email']  # Replace with your email address
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            if verify_recaptcha(recaptcha_response):
+                self.object = self.get_object()
+                print(self.object)
+                
+                form = EnquireForm(request.POST)
+                print(form)
+                print(request.POST)
+                if form.is_valid():
+                    print("its valid")
+                    inquiry = form.save(commit=False)
+                    inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
+                    inquiry.save()
+                    recipient_email = 'jaideep.technographix@gmail.com'
+                    subject = 'the trekers enquiry'
+                    message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: { self.object.__dict__}"
+                    from_email = form.cleaned_data['email']  # Replace with your email address
 
-                # Send email
-                send_mail(subject, message, from_email, [recipient_email])
+                    # Send email
+                    send_mail(subject, message, from_email, [recipient_email])
+                    return HttpResponseRedirect(self.request.path_info)
+                else:
+                    print(form.errors)  # Print form errors to console for debugging
+                    return render(request, 'trekkapp/contact.html', {'form': form})
+        elif 'something' in request.POST:
+            user_input = request.POST.get('captcha')
+            captcha_text = request.session.get('captcha_text')
+        
+            if user_input == captcha_text:
+                print("hi")
                 return HttpResponseRedirect(self.request.path_info)
-            else:
-                print(form.errors)  # Print form errors to console for debugging
-                return render(request, 'trekkapp/contact.html', {'form': form})
         else:
              return render(request, 'trekkapp/contact.html', {'form': EnquireForm})
 class Detailedtour(DetailView):
@@ -160,28 +272,38 @@ class Detailedtour(DetailView):
     def post(self, request, **kwargs):
         print(request.POST)
         if 'name' in request.POST:
-            self.object = self.get_object()
-            print(self.object)
-            
-            form = EnquireForm(request.POST)
-            print(form)
-            print(request.POST)
-            if form.is_valid():
-                print("its valid")
-                inquiry = form.save(commit=False)
-                inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
-                inquiry.save()
-                recipient_email = 'jaideep.technographix@gmail.com'
-                subject = 'the trekers enquiry'
-                message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: { self.object.__dict__}"
-                from_email = form.cleaned_data['email']  # Replace with your email address
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            if verify_recaptcha(recaptcha_response):
+                self.object = self.get_object()
+                print(self.object)
+                
+                form = EnquireForm(request.POST)
+                print(form)
+                print(request.POST)
+                if form.is_valid():
+                    print("its valid")
+                    inquiry = form.save(commit=False)
+                    inquiry.thetrek = self.object.__dict__  # Assign the City object to the form field
+                    inquiry.save()
+                    recipient_email = 'jaideep.technographix@gmail.com'
+                    subject = 'the trekers enquiry'
+                    message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}\nthe trek: { self.object.__dict__}"
+                    from_email = form.cleaned_data['email']  # Replace with your email address
 
-                # Send email
-                send_mail(subject, message, from_email, [recipient_email])
+                    # Send email
+                    send_mail(subject, message, from_email, [recipient_email])
+                    return HttpResponseRedirect(self.request.path_info)
+                else:
+                    print(form.errors)  # Print form errors to console for debugging
+                    return render(request, 'trekkapp/contact.html', {'form': form})
+        elif 'something' in request.POST:
+            user_input = request.POST.get('captcha')
+            captcha_text = request.session.get('captcha_text')
+        
+            if user_input == captcha_text:
+                print("hi")
                 return HttpResponseRedirect(self.request.path_info)
-            else:
-                print(form.errors)  # Print form errors to console for debugging
-                return render(request, 'trekkapp/contact.html', {'form': form})
+
         else:
              return render(request, 'trekkapp/contact.html', {'form': EnquireForm})
         
@@ -190,6 +312,7 @@ def contact(request):
         form=ContactForm(request.POST)
         recaptcha_response = request.POST.get('g-recaptcha-response')
         if verify_recaptcha(recaptcha_response):
+            print("ysy")
             if form.is_valid():
                 form.save()
                 recipient_email = 'jaideep.technographix@gmail.com'
