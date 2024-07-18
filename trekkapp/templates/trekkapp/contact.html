@@ -56,13 +56,66 @@
         <label for="id_number">Number:</label>
         <div id="numcheck"></div>
     </p>
+    <p class="form-floating">
+        
+  <input class="form-control" type="date" id="date" name="date" value="{{ default_date }}" placeholder="date">
+  <label for="date">Select a date:</label>
+    </p>
     <p class="form-floating"> 
         <textarea class="form-control" name="message" cols="40" rows="10" class="form-control" required="" id="id_message" placeholder="Messafe"></textarea>
         <label for="id_message">Message:</label>
     </p>
+    {% if personal %}
+    <select name="trek" id="">
+        {% for i in trekking %}
+        <optgroup label="trekking-{{ i }}">
+            {% for j in cities %}
+            {% if j.trekking == i %}
+            <option value="trekking-{{ i }}-{{ j }}">{{ j }}</option>
+            {% endif %}
+            {% endfor %}
+        </optgroup>
+        {% endfor %}
+        {% for i in adventure %}
+        <optgroup label="adventure-{{ i }}">
+            {% for j in cities %}
+            {% if j.adventure == i %}
+            <option value="adventure-{{ i }}-{{ j }}">{{ j }}</option>
+            {% endif %}
+            {% endfor %}
+        </optgroup>
+        {% endfor %}
+        {% for i in festival %}
+        <optgroup label="festival-{{ i }}">
+            {% for j in cities %}
+            {% if j.festival == i %}
+            <option value="festival-{{ i }}-{{ j }}">{{ j }}</option>
+            {% endif %}
+            {% endfor %}
+        </optgroup>
+        {% endfor %}
+        <optgroup label="cycling">
+            {% for i in cycling %}
+            <option value="cycling-{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </optgroup>
+        <optgroup label="camping">
+            {% for i in camping %}
+            <option value="camping-{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </optgroup>
+        <optgroup label="tours">
+            {% for i in tours %}
+            <option value="tours-{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </optgroup>
+        
+    </select>
+    {% endif %}
     <div class="g-recaptcha" data-sitekey="6LegtRAqAAAAALIbBVLcMgknVNJfrrfSShTFJ9DX"></div>
     <p class="form-floating">
         </p>
+       
         <button type="submit" class="btn btn-warning">Submit</button>
         </form>
     <script>

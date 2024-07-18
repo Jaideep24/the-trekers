@@ -16,6 +16,8 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 import random
 import string
 from io import BytesIO
+import datetime
+
 # Create your views here.
 def generate_captcha_text(length=6):
     excluded_characters = 'Il1O0'
@@ -343,7 +345,30 @@ def personal(request):
         recaptcha_response = request.POST.get('g-recaptcha-response')
         if verify_recaptcha(recaptcha_response):
             if form.is_valid():
-                form.save()
+                name = request.POST.get('name')
+                email = request.POST.get('email')
+                number = request.POST.get('number')
+                date_str = request.POST.get('date')
+                message = request.POST.get('message')
+
+                # Parse the date field
+                if date_str:
+                    try:
+                        event_date = datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+                    except ValueError:
+                        event_date = timezone.now().date()
+                else:
+                    event_date = timezone.now().date()
+
+                # Create and save the new PersonalTrek instance
+                personal_trek = personaltrek(
+                    name=name,
+                    email=email,
+                    number=number,
+                    date=event_date,
+                    message=message
+                )
+                personal_trek.save()
                 recipient_email = 'jaideep.technographix@gmail.com'
                 subject = 'the trekers custom trek'
                 message = f"Name: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\nMessage: {form.cleaned_data['message']}\nNumber: {form.cleaned_data['number']}"
@@ -351,20 +376,20 @@ def personal(request):
 
                 # Send email
                 send_mail(subject, message, from_email, [recipient_email])
-                return render(request,'trekkapp/contact.html',{'form':PersonalForm,'success':True})
+                return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'success':True})
             else:
                 pattern=r"^(?:\+91|91)?[789]\d{9}$"
                 emailpattern=r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
                 if(re.match(pattern,request.POST['number'])==None):
-                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,'number':True})
+                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'number':True})
                 elif(re.match(emailpattern,request.POST['email'])==None):
-                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,'email':True})
+                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'email':True})
                 else:
-                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,'failure':True})
+                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'failure':True})
         else:
-            return render(request,'trekkapp/contact.html',{'form':ContactForm,'captcha':True})
+            return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'captcha':True})
     else:
-        return render(request,'trekkapp/contact.html',{'form':PersonalForm})
+        return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all()})
 
 def view(request):
     userlist=Logger.objects.all().values()
@@ -406,6 +431,7 @@ class DetailArticleView(DetailView):
         self.object = self.get_object()
         form = CommentForm(request.POST)
         print(request.POST)
+        print("hi")
         if form.is_valid():
             form.save(commit=False)
             form.article=self.object
@@ -415,11 +441,12 @@ class DetailArticleView(DetailView):
         elif request.is_ajax():
             model_id = self.kwargs['pk']  # Assuming your model uses pk as the primary key
             model = self.get_object()
+            print("ajax")
             action = request.POST.get('action')
             # Logic to update the likes of the model
             # Example:
             if action == 'like':
-                    
+                print("yo")
                 if model.likes is not None:
                     model.likes += 1
                 else:

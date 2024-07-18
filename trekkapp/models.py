@@ -124,6 +124,7 @@ class personaltrek(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField()
     number=PhoneNumberField(blank=True,null=True, region='IN')
+    date=models.DateField(default=timezone.now().date())
     message=models.TextField()
     def __str__(self):
         return self.name
