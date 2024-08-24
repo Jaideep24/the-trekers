@@ -9,30 +9,448 @@
 </head>
 <body>
     
-<header style="background-color: black; opacity: 0.6; position: sticky; height: 10vh; top: 0; z-index: 10000000;">
-    <img src="{% static 'LOGO.png' %}" style="height: 100%;" alt="">
+<header style="background-color: black; opacity: 0.9; position: sticky; height: 12vh; top: 0; z-index: 10000000;">
+    <img src="{% static 'LOGO.png' %}" style="height: 80%;" alt="">
+    <marquee behavior="" direction="" style="background-color: blue; color: white;">Welcome to the trekers</marquee>
 </header>
 <div> 
     <center><h1 style="padding-left: 45%; position: absolute;">Upcoming</h1></center>
     <div style="background-color: white; position: absolute; top: 80%; left: 50%; transform: translate(-50%,-50%);width: 90%; height: 90%; overflow: hidden;">
         <div style="height: 90%; width: 100%; overflow: hidden;">
         {% for city in cities %}
+        {% if city.upcoming %}
         <a style="position: absolute;" href="{% url 'detail_article' city.pk %}">
             <img src="/media/{{ city.image }}" alt="" style="height: 80vh; width: 100vw;">
         </a>
+        {% endif %}
         {% endfor %}
     </div>
     <div style="height: 10%;">
-        <div style="border-radius: 50%; position: absolute; background-color: black; margin-top: -2%; opacity: 0.5; color: white; height: 9vh; width: 9vh;"><center><h2 style="position: absolute; top: 15%; left: 50%; transform: translate(-50%,-50%);"><</h2></center></div>
-        <div style="border-radius: 50%; position: absolute; margin-left: 90%; margin-top: -2%; opacity: 0.5; background-color: black; color: white; height: 9vh; width: 9vh;"><center><h2 style="position: absolute; top: 15%; left: 50%; transform: translate(-50%,-50%);">></h2></center></div>
+        <div onclick="backward()" style="border-radius: 50%; position: absolute; background-color: black; margin-top: -2%; opacity: 0.5; color: white; height: 9vh; width: 9vh;"><center><h2 style="position: absolute; top: 15%; left: 50%; transform: translate(-50%,-50%);"><</h2></center></div>
+        <div onclick="forward()" style="border-radius: 50%; position: absolute; margin-left: 95.5%; margin-top: -2%; opacity: 0.5; background-color: black; color: white; height: 9vh; width: 9vh;"><center><h2 style="position: absolute; top: 15%; left: 50%; transform: translate(-50%,-50%);">></h2></center></div>
         {% for city in cities %}
-        <div style="position: absolute; margin-left: calc(20% * {{ city.id }} );">
+        {% if city.upcoming %}
+        <div  class="something" style="position: absolute; margin-left: calc(20% * {{ city.id }} - 15% );">
             {{ city.name}}
         </div>
+        {% endif %}
         {% endfor %}
     </div>
     </div>
     <img src="{% static 'few of animated 88b001f0-b0e3-487c-9df8-8181219162d1.png' %}" style="width: 100%; height: 120vh;" alt="">
 </div>
+<div class="hexagon-container">
+    <div class="hexagon center"></div>
+    <div class="hexagon top"></div>
+    <div class="hexagon top-left"></div>
+    <div class="hexagon top-right"></div>
+    <div class="hexagon bottom-left"></div>
+    <div class="hexagon bottom-right"></div>
+    <div class="hexagon bottom"></div>
+    
+</div>
+<style>
+    
+    .hexagon-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.hexagon {
+    aspect-ratio: 1/cos(30deg);
+  clip-path: polygon(50% -50%,100% 50%,50% 150%,0 50%);
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+	height: 163px;
+    background: linear-gradient(-45deg,#CD8C52,#5E9FA3);
+}
+
+/* Center Hexagon */
+.center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Surrounding Hexagons */
+.top-left {
+    top: 34%;
+    left: 37.1%;
+    transform: translate(-50%, -50%);
+}
+
+.top-right {
+    top: 34%;
+    left: 63%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom-left {
+    top: 39.5%;
+    left: 37.1%;
+    transform: translate(-50%, 50%);
+}
+
+.bottom-right {
+    top: 39.5%;
+    left: 63%;
+    transform: translate(-50%, 50%);
+}
+
+.top {
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom {
+    top: 82%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@media screen and (max-width: 2560px){
+    .hexagon{
+        height: 400px;
+    }
+
+    .top-left {
+    top: 34%;
+    left: 33.1%;
+    transform: translate(-50%, -50%);
+}
+
+.top-right {
+    top: 34%;
+    left: 67%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom-left {
+    top: 39.5%;
+    left: 33.1%;
+    transform: translate(-50%, 50%);
+}
+
+.bottom-right {
+    top: 39.5%;
+    left: 67%;
+    transform: translate(-50%, 50%);
+}
+
+.top {
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom {
+    top: 82%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+}
+@media screen and (max-width: 1440px){
+    .hexagon{
+        height: 180px;
+    }
+
+    .top-left {
+    top: 34%;
+    left: 37.1%;
+    transform: translate(-50%, -50%);
+}
+
+.top-right {
+    top: 34%;
+    left: 63%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom-left {
+    top: 36.5%;
+    left: 37.1%;
+    transform: translate(-50%, 50%);
+}
+
+.bottom-right {
+    top: 36.5%;
+    left: 63%;
+    transform: translate(-50%, 50%);
+}
+
+.top {
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom {
+    top: 82%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+}
+@media screen and (max-width: 1024px){
+    .hexagon{
+        height: 180px;
+    }
+
+    .top-left {
+    top: 34%;
+    left: 30.1%;
+    transform: translate(-50%, -50%);
+}
+
+.top-right {
+    top: 34%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom-left {
+    top: 39.5%;
+    left: 30.1%;
+    transform: translate(-50%, 50%);
+}
+
+.bottom-right {
+    top: 39.5%;
+    left: 70%;
+    transform: translate(-50%, 50%);
+}
+
+.top {
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom {
+    top: 82%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+}
+
+@media screen and (max-width: 768px){
+    .hexagon{
+        height: 140px;
+    }
+
+    .top-left {
+    top: 34%;
+    left: 30.1%;
+    transform: translate(-50%, -50%);
+}
+
+.top-right {
+    top: 34%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom-left {
+    top: 39.5%;
+    left: 30.1%;
+    transform: translate(-50%, 50%);
+}
+
+.bottom-right {
+    top: 39.5%;
+    left: 70%;
+    transform: translate(-50%, 50%);
+}
+
+.top {
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom {
+    top: 82%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+}
+@media screen and (max-width:425px){
+    .hexagon{
+        height: 120px;
+    }
+
+    .top-left {
+    top: 37%;
+    left: 21.1%;
+    transform: translate(-50%, -50%);
+}
+
+.top-right {
+    top: 37%;
+    left: 79%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom-left {
+    top: 40%;
+    left: 21.1%;
+    transform: translate(-50%, 50%);
+}
+
+.bottom-right {
+    top: 40%;
+    left: 79%;
+    transform: translate(-50%, 50%);
+}
+
+.top {
+    top: 24%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom {
+    top: 76%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+}
+@media screen and (max-width:375px){
+    .hexagon{
+        height: 100px;
+    }
+
+    .top-left {
+    top: 38%;
+    left: 21.1%;
+    transform: translate(-50%, -50%);
+}
+
+.top-right {
+    top: 38%;
+    left: 79%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom-left {
+    top: 42.5%;
+    left: 21.1%;
+    transform: translate(-50%, 50%);
+}
+
+.bottom-right {
+    top: 42.5%;
+    left: 79%;
+    transform: translate(-50%, 50%);
+}
+
+.top {
+    top: 26%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom {
+    top: 74%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+}
+@media screen and (max-width:325px){
+    .hexagon{
+        height: 100px;
+    }
+
+    .top-left {
+    top: 39%;
+    left: 18.1%;
+    transform: translate(-50%, -50%);
+}
+
+.top-right {
+    top: 39%;
+    left: 82%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom-left {
+    top: 41.5%;
+    left: 18.1%;
+    transform: translate(-50%, 50%);
+}
+
+.bottom-right {
+    top: 41.5%;
+    left: 82%;
+    transform: translate(-50%, 50%);
+}
+
+.top {
+    top: 28%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.bottom {
+    top: 72%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+}
+/* Responsive Styles */
+
+</style>
+<script>
+    function forwarddoing(i){
+        Array.from(document.getElementsByClassName("something")).forEach(element => {
+            // Get the current margin value
+            let margin = window.getComputedStyle(element).marginLeft;
+            let numericMargin = parseFloat(margin); // Convert margin to a number
+            
+            // Calculate the new margin
+            let x = i / 1000;
+            //console.log(x);
+            //console.log(numericMargin);
+            let newMargin = numericMargin - 4650 * ((Math.pow(x, 4) / 4) - (Math.pow(x, 3)*0.25) + (Math.pow(x, 2)/16));
+            //console.log(newMargin);
+            // Set the new margin
+            element.style.marginLeft = `${newMargin}px`;
+        });
+    }
+    
+    function forward(){
+        for(let i = 0; i <= 500; i++){
+            setTimeout(() => {
+                forwarddoing(i);
+            }, i); // Adjust the multiplier to control the timing interval
+        }
+    }
+    function backwarddoing(i){
+        Array.from(document.getElementsByClassName("something")).forEach(element => {
+            // Get the current margin value
+            let margin = window.getComputedStyle(element).marginLeft;
+            let numericMargin = parseFloat(margin); // Convert margin to a number
+            
+            // Calculate the new margin
+            let x = i / 1000;
+            //console.log(x);
+            //console.log(numericMargin);
+            let newMargin = numericMargin + 4650 * ((Math.pow(x, 4) / 4) - (Math.pow(x, 3)*0.25) + (Math.pow(x, 2)/16));
+            //console.log(newMargin);
+            // Set the new margin
+            element.style.marginLeft = `${newMargin}px`;
+        });
+    }
+    
+    function backward(){
+        for(let i = 0; i <= 500; i++){
+            setTimeout(() => {
+                backwarddoing(i);
+            }, i); // Adjust the multiplier to control the timing interval
+        }
+    }
+</script>    
 </body>
 </html>

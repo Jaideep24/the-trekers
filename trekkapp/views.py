@@ -106,7 +106,7 @@ def verify_recaptcha(recaptcha_response):
 
 def index(request):
 
-    return render(request,'trekkapp/trekking.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
+    return render(request,'trekkapp/adventure.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
 
 def about(request):
     return render(request,'trekkapp/About.html')
