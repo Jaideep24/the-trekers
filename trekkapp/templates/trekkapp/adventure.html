@@ -5,40 +5,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <title>Document</title>
+        <title>Sample 1</title>
 </head>
-<body style="margin: 0;">
-    
-<header style="background-color: black; opacity: 0.9; position: sticky; height: 12vh; top: 0; z-index: 10000000;">
-    <img src="{% static 'LOGO.png' %}" style="height: 80%;" alt="">
-    <marquee behavior="" direction="" style="background-color: blue; color: white;">Welcome to the trekers</marquee>
-</header>
-<div> 
-    <center><h1 style="padding-left: 45%; position: absolute;">Upcoming</h1></center>
-    <div style="background-color: white; position: absolute; top: 80%; left: 50%; transform: translate(-50%,-50%);width: 90%; height: 90%; overflow: hidden;">
-        <div style="height: 90%; width: 100%; overflow: hidden;">
-        {% for city in cities %}
-        {% if city.upcoming %}
-        <a style="position: absolute;" href="{% url 'detail_article' city.pk %}">
-            <img src="/media/{{ city.image }}" alt="" style="height: 80vh; width: 100vw;">
-        </a>
-        {% endif %}
-        {% endfor %}
+{% include 'trekkapp/Home.html' %}
+
+{% load static %}
+{% block content %}
+
+<div style=" z-index: 1000; background-color: #ffffff; margin-top: 2%;" id="list">
+    <center><h1>Upcoming</h1></center>
+    <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1" >
+        <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
+          <div class="u-repeater u-repeater-1">
+              {% for city in cities %}
+              {% if city.upcoming == True %}
+              <a href="{% url 'detail_article' city.pk %}">
+                       <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+              <div class="u-container-layout u-similar-container u-container-layout-1" >
+                
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+              </div>
+            </div>
+                       </a>
+    {% endif %}
+    {% endfor %}
+    {% for city in cycling %}
+              {% if city.upcoming == True %}
+              <a href="{% url 'detail_cycle' city.pk %}">
+                       <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+              <div class="u-container-layout u-similar-container u-container-layout-1" >
+                
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+              </div>
+            </div>
+                       </a>
+    {% endif %}
+    {% endfor %}
+    {% for city in camping %}
+              {% if city.upcoming == True %}
+              <a href="{% url 'detail_camp' city.pk %}">
+                       <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+              <div class="u-container-layout u-similar-container u-container-layout-1" >
+                
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+              </div>
+            </div>
+                       </a>
+    {% endif %}
+    {% endfor %}
+    {% for city in tours %}
+              {% if city.upcoming == True %}
+              <a href="{% url 'detail_tour' city.pk %}">
+                       <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+              <div class="u-container-layout u-similar-container u-container-layout-1" >
+                
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+              </div>
+            </div>
+                       </a>
+    {% endif %}
+    {% endfor %}
     </div>
-    <div style="height: 10%;">
-        <div onclick="backward()" style="border-radius: 50%; position: absolute; background-color: black; margin-top: -2%; opacity: 0.5; color: white; height: 9vh; width: 9vh;"><center><h2 style="position: absolute; top: 15%; left: 50%; transform: translate(-50%,-50%);"><</h2></center></div>
-        <div onclick="forward()" style="border-radius: 50%; position: absolute; margin-left: 95.5%; margin-top: -2%; opacity: 0.5; background-color: black; color: white; height: 9vh; width: 9vh;"><center><h2 style="position: absolute; top: 15%; left: 50%; transform: translate(-50%,-50%);">></h2></center></div>
-        {% for city in cities %}
-        {% if city.upcoming %}
-        <div  class="something" style="position: absolute; margin-left: calc(20% * {{ city.id }} - 15% );">
-            {{ city.name}}
+          <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
+            <span aria-hidden="true">
+              <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+    c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+    c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+            </span>
+            <span class="sr-only">
+              <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+    c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+    c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+            </span>
+          </a>
+          <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="#" role="button">
+            <span aria-hidden="true">
+              <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+    L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+    c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+            </span>
+            <span class="sr-only">
+              <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+    L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+    c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+            </span>
+          </a>
         </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-    </div>
-    <img src="{% static 'few of animated 88b001f0-b0e3-487c-9df8-8181219162d1.png' %}" style="width: 100%; height: 120vh;" alt="">
-</div>
+      </div>
+    </section>
+
 <div class="hexagon-container">
     <div class="hexagon center"></div>
     <div class="hexagon top"></div>
@@ -52,11 +112,12 @@
 <style>
     
     .hexagon-container {
-    position: absolute;
+    position: relative;
     width: 0;
     height: 0;
-    top: 190%;
-    left: 50%;
+    margin-top: 20%;
+   margin-left: 50% ;
+   margin-bottom: 50%;
     transform:translate(-50%,-50%);
 
 }
@@ -337,6 +398,677 @@
             }, i); // Adjust the multiplier to control the timing interval
         }
     }
-</script>    
+</script> 
+<script>
+    function datafetcher(){
+    const promis=[fetch('api/city').then(response => response.json()),fetch('api/cycling').then(response => response.json()),fetch('api/camping').then(response => response.json()),fetch('api/tours').then(response => response.json())]
+  return Promise.all(promis).then(data => {return data;})  
+  } 
+  
+  
+    let searcharray=[];
+    let somearray=JSON.parse('{{ cities_json|escapejs }}');
+    
+for (let i = 0; i < somearray.length; i++) {
+searcharray.push(somearray[i].name);
+}
+    
+    function check(word1,word2)
+    {
+      let a=0;
+      let wordy1=word1.toLowerCase().split('');
+      let wordy2=word2.toLowerCase().split('');
+      for(let i=0;i<wordy1.length;i++)
+      {
+        if(wordy1[i]!=wordy2[i])
+        {
+          a=1;
+        }
+      }
+      if(a==1){
+        return false;
+      }
+      else{
+        return true;
+      }
+    }
+    function execute(word)
+    {
+    console.log(searcharray.length);
+      document.getElementById("list").innerHTML="";
+      datafetcher().then(thedata =>{console.log(thedata[1]);
+      let bigarray={'upcoming':[], 'trekking':{'monsoon':[],'night':[],'one day':[],'waterfall':[]},'festival':{'fireflies':[],'fruit':[],'kite':[],'turtal':[],'new year':[],'holi':[]},'adventure':{'rappling':[],'thrilling':[]},'cycling':[],'camping':[],'tours':[]};
+    //for the cities
+    for(let j=0;j<thedata[0].length;j++)
+    {
+      if(check(word,thedata[0][j]['name']))
+      {
+        if(thedata[0][j]['upcoming'])
+        {
+          bigarray['upcoming'].push(thedata[0][j]);
+        }
+        else
+        {
+          if(thedata[0][j]['trekking_id']!=null)
+          {
+            if(thedata[0][j]['trekking_id']==1){
+              bigarray['trekking']['monsoon'].push((thedata[0][j]));
+            }
+            else if(thedata[0][j]['trekking_id']==2){
+              bigarray['trekking']['night'].push((thedata[0][j]));
+            }
+            else if(thedata[0][j]['trekking_id']==3){
+              bigarray['trekking']['one day'].push((thedata[0][j]));
+            }
+            else if(thedata[0][j]['trekking_id']==4){
+              bigarray['trekking']['waterfall'].push((thedata[0][j]))
+            }
+          }
+          else if(thedata[0][j]['festival_id']!=null)
+          {console.log('festival');
+            if(thedata[0][j]['festival_id']==1)
+            {
+              bigarray['festival']['fireflies'].push(thedata[0][j]);
+            }
+            else if(thedata[0][j]['festival_id']==2)
+            {
+              bigarray['festival']['fruit'].push(thedata[0][j]);
+            }
+            else if(thedata[0][j]['festival_id'==3])
+            {
+              bigarray['festival']['kite'].push(thedata[0][j]);
+            }
+            else if(thedata[0][j]['festival_id'==4])
+            {
+              bigarray['festival']['turtal'].push(thedata[0][j]);
+            }
+            else if(thedata[0][j]['festival_id'==5])
+            {
+              bigarray['festival']['new year'].push(thedata[0][j]);
+            }
+            else if(thedata[0][j]['festival_id'==6])
+            {
+              bigarray['festival']['holi'].push(thedata[0][j]);
+            }
+          }
+          else if(thedata[0][j]['adventure_id']!=null)
+          {
+            if(thedata[0][j]['adventure_id']==1)
+            {
+              bigarray['adventure']['rappling'].push(thedata[0][j]);
+            }
+            else if(thedata[0][j]['adventure_id']==2)
+            {
+              bigarray['adventure']['thrilling'].push(thedata[0][j]);
+            }
+          }
+        }
+      }
+    }
+    //for cycling
+    for(let k=0;k<thedata[1].length;k++)
+    {
+      if(check(word,thedata[1][k]['name']))
+      {
+        if(thedata[1][k]['upcoming'])
+        {
+          thedata[1][k]['type']='cycle';
+          bigarray['upcoming'].push(thedata[1][k]);
+        }
+        else{
+          bigarray['cycling'].push(thedata[1][k]);
+        }
+      }
+    }
+    //for camping
+    for(let l=0;l<thedata[2].length;l++)
+    {
+      if(check(word,thedata[2][l]['name']))
+      {
+        if(thedata[2][l]['upcoming'])
+        {
+          thedata[2][l]['type']='camping';
+          bigarray['upcoming'].push(thedata[2][l]);
+        }
+        else{
+          bigarray['camping'].push(thedata[2][l]);
+        }
+      }
+    }
+    //for tours
+    for(let m=0;m<thedata[3].length;m++)
+    {
+      if(check(word,thedata[3][m]['name']))
+      {
+        if(thedata[3][m]['upcoming'])
+        {
+          thedata[3][m]['type']='tours';
+          bigarray['upcoming'].push(thedata[3][m]);
+        }
+        else{
+          bigarray['tours'].push(thedata[3][m]);
+        }
+      }
+    }
+    console.log(bigarray);
+    let startingfirsthalf=`<section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
+<div class="u-clearfix u-sheet u-valign-middle u-sheet-1" >`
+startingsecondhalf=`
+<div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
+<div class="u-repeater u-repeater-1">`;
+    let middlefirsthalf=`<div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+<div class="u-container-layout u-similar-container u-container-layout-1" >
+
+`
+  middlesecondhalf=` </h4>
+</div>
+</div>
+       </a>`;
+    let end=`</div>
+<a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="javascript:void(0);" role="button">
+<span aria-hidden="true">
+<svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+</span>
+<span class="sr-only">
+<svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+</span>
+</a>
+<a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="javascript:void(0);" role="button">
+<span aria-hidden="true">
+<svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+</span>
+<span class="sr-only">
+<svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+</span>
+</a>
+</div>
+</div>
+</section>`;
+let everything="";
+if(bigarray['upcoming'].length!=0)
+{
+everything=everything+"<center><h1>Upcoming</h1></center>"+startingfirsthalf+startingsecondhalf;
+for(let n=0;n<bigarray['upcoming'].length;n++)
+{
+if(bigarray['upcoming'][n]['trekking_id']!=null || bigarray['upcoming'][n]['adventure_id']!=null || bigarray['upcoming'][n]['festival_id']!=null){
+everything=everything+'<a href="trek/'+bigarray['upcoming'][n]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['upcoming'][n]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['upcoming'][n]['name']+middlesecondhalf;
+}
+else if(bigarray['upcoming'][n]['type']=='cycle')
+{
+everything=everything+'<a href="cycling/'+bigarray['upcoming'][n]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['upcoming'][n]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['upcoming'][n]['name']+middlesecondhalf;
+}
+else if(bigarray['upcoming'][n]['type']=='camping')
+{
+everything=everything+'<a href="camping/'+bigarray['upcoming'][n]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['upcoming'][n]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['upcoming'][n]['name']+middlesecondhalf;
+}
+else if(bigarray['upcoming'][n]['type']=='tours')
+{
+everything=everything+'<a href="cycling/'+bigarray['upcoming'][n]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['upcoming'][n]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['upcoming'][n]['name']+middlesecondhalf;
+}
+
+}
+everything=everything+end;
+}
+if(bigarray['trekking']['monsoon'].length!=0 || bigarray['trekking']['one day'].length!=0 || bigarray['trekking']['night'].length!=0 || bigarray['trekking']['waterfall'].length!=0)
+{
+everything=everything+"<center><h1>Trekking</h1></center>";
+if(bigarray['trekking']['monsoon'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Monsoon</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['trekking']['monsoon'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['trekking']['monsoon'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['trekking']['monsoon'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['trekking']['monsoon'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['trekking']['night'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Night</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['trekking']['night'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['trekking']['night'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['trekking']['night'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['trekking']['night'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['trekking']['one day'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">One Day</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['trekking']['one day'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['trekking']['one day'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['trekking']['one day'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['trekking']['one day'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['trekking']['waterfall'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Waterfall</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['trekking']['waterfall'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['trekking']['waterfall'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['trekking']['waterfall'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['trekking']['waterfall'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+}
+if(bigarray['festival']['fireflies'].length!=0 || bigarray['festival']['fruit'].length!=0 || bigarray['festival']['kite'].length!=0 || bigarray['festival']['turtal'].length!=0 || bigarray['festival']['new year'].length!=0 || bigarray['festival']['holi'].length!=0)
+{
+everything=everything+"<center><h1>festival</h1></center>";
+if(bigarray['festival']['fireflies'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Fireflies</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['festival']['fireflies'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['festival']['fireflies'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['fireflies'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['fireflies'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['festival']['fruit'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Fruit</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['festival']['fruit'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['festival']['fruit'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['fruit'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['fruit'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['festival']['kite'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Kite</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['festival']['kite'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['festival']['kite'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['kite'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['kite'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['festival']['turtal'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Turtal</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['festival']['turtal'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['festival']['turtal'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['turtal'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['turtal'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['festival']['new year'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">New Year</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['festival']['new year'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['festival']['new year'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['new year'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['new year'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['festival']['holi'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Holi</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['festival']['holi'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['festival']['holi'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['festival']['holi'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['festival']['holi'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+}
+if(bigarray['adventure']['rappling'].length!=0 || bigarray['adventure']['thrilling'].length!=0)
+{
+everything=everything+"<center><h1>adventure</h1></center>";
+if(bigarray['adventure']['rappling'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Rappling</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['adventure']['rappling'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['adventure']['rappling'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['adventure']['rappling'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['adventure']['rappling'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['adventure']['thrilling'].length!=0)
+{
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Thrilling</h2>'+startingsecondhalf;
+for(let o=0;o<bigarray['adventure']['thrilling'].length;o++)
+{
+everything=everything+'<a href="trek/'+bigarray['adventure']['thrilling'][o]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['adventure']['thrilling'][o]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['adventure']['thrilling'][o]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+}
+if(bigarray['cycling'].length!=0){
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Cycling</h2>'+startingsecondhalf;
+for(let p=0; p<bigarray['cycling'].length;p++)
+{
+everything=everything+'<a href="cycling/'+bigarray['cycling'][p]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['cycling'][p]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['cycling'][p]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['camping'].length!=0){
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Camping</h2>'+startingsecondhalf;
+for(let p=0; p<bigarray['camping'].length;p++)
+{
+everything=everything+'<a href="camping/'+bigarray['camping'][p]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['camping'][p]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['camping'][p]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+if(bigarray['tours'].length!=0){
+everything=everything+startingfirsthalf+'<h2 class="u-text u-text-default u-text-1">Tours</h2>'+startingsecondhalf;
+for(let p=0; p<bigarray['tours'].length;p++)
+{
+everything=everything+'<a href="tour/'+bigarray['tours'][p]['id']+'">'+middlefirsthalf+'<img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="media/'+bigarray['tours'][p]['image']+'"><h4 class="u-align-center u-text u-text-2">'+bigarray['tours'][p]['name']+middlesecondhalf;
+}
+everything=everything+end;
+}
+document.getElementById("list").innerHTML=everything;
+console.log(bigarray)
+    
+    });
+      
+    }
+    datafetcher().then(thedata =>{
+      console.log(thedata[1]);
+
+    });
+
+    document.getElementById("search").addEventListener('input', function(){ 
+      if(document.getElementById("search").value!=""){
+      execute(document.getElementById("search").value);}
+      else{
+        location.reload();
+      }
+    });
+    
+  </script>
+  <center><h1>Trekking</h1></center>
+   {% for object in trekking %}
+   {% if object.exclude == False %}
+   <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
+       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1" >
+         <h2 class="u-text u-text-default u-text-1">{{ object }}</h2>
+         <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
+           <div class="u-repeater u-repeater-1">
+             
+               {% for city in cities %}
+               {% if city.trekking == object %}
+               <a href="{% url 'detail_article' city.pk %}">
+                        <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+               <div class="u-container-layout u-similar-container u-container-layout-1" >
+                 
+                 <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+               </div>
+             </div>
+                        </a>
+   {% endif %}
+   {% endfor %}
+   </div>
+           <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
+             <span aria-hidden="true">
+               <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+   c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+   c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+             </span>
+             <span class="sr-only">
+               <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+   c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+   c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+             </span>
+           </a>
+           <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="#" role="button">
+             <span aria-hidden="true">
+               <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+   L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+   c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+             </span>
+             <span class="sr-only">
+               <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+   L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+   c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+             </span>
+           </a>
+         </div>
+       </div>
+     </section>
+     {% endif %}
+     {% endfor %}
+     <center><h1>Festival</h1></center>
+     {% for object in festival %}
+     {% if object.exclude == False %}
+     <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
+         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+           <h2 class="u-text u-text-default u-text-1">{{ object }}</h2>
+           <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
+             <div class="u-repeater u-repeater-1">
+                 {% for city in cities %}
+                 {% if city.festival == object %}
+                 <a href="{% url 'detail_article' city.pk %}">
+                          <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
+                 <div class="u-container-layout u-similar-container u-container-layout-1">
+                   <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                   <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+                 </div>
+               </div>
+                          </a>
+     {% endif %}
+     {% endfor %}
+     </div>
+             <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
+               <span aria-hidden="true">
+                 <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+     c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+     c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+               </span>
+               <span class="sr-only">
+                 <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+     c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+     c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+               </span>
+             </a>
+             <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="#" role="button">
+               <span aria-hidden="true">
+                 <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+     L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+     c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+               </span>
+               <span class="sr-only">
+                 <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+     L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+     c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+               </span>
+             </a>
+           </div>
+         </div>
+       </section>
+       {% endif %}
+       {% endfor %}
+       <center><h1>Adventure</h1></center>
+       {% for object in adventure %}
+       {% if object.exclude == False %}
+   <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
+       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+         <h2 class="u-text u-text-default u-text-1">{{ object }}</h2>
+         <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
+           <div class="u-repeater u-repeater-1">
+               {% for city in cities %}
+               {% if city.adventure == object %}
+               <a href="{% url 'detail_article' city.pk %}">
+                        <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
+               <div class="u-container-layout u-similar-container u-container-layout-1">
+                 <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+               </div>
+             </div>
+                        </a>
+   {% endif %}
+   {% endfor %}
+   </div>
+           <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
+             <span aria-hidden="true">
+               <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+   c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+   c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+             </span>
+             <span class="sr-only">
+               <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+   c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+   c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+             </span>
+           </a>
+           <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="#" role="button">
+             <span aria-hidden="true">
+               <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+   L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+   c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+             </span>
+             <span class="sr-only">
+               <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+   L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+   c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+             </span>
+           </a>
+         </div>
+       </div>
+     </section>
+     {% endif %}
+     {% endfor %}  
+     <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
+       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+         <h2 class="u-text u-text-default u-text-1">Cycling</h2>
+         <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
+           <div class="u-repeater u-repeater-1">
+               {% for city in cycling %}
+               
+               <a href="{% url 'detail_cycle' city.pk %}">
+                        <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
+               <div class="u-container-layout u-similar-container u-container-layout-1">
+                 <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+               </div>
+             </div>
+                        </a>
+   
+   {% endfor %}
+   </div>
+           <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
+             <span aria-hidden="true">
+               <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+   c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+   c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+             </span>
+             <span class="sr-only">
+               <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+   c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+   c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+             </span>
+           </a>
+           <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="#" role="button">
+             <span aria-hidden="true">
+               <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+   L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+   c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+             </span>
+             <span class="sr-only">
+               <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+   L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+   c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+             </span>
+           </a>
+         </div>
+       </div>
+     </section>
+   
+     <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
+       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+         <h2 class="u-text u-text-default u-text-1">Camping</h2>
+         <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
+           <div class="u-repeater u-repeater-1">
+               {% for city in camping %}
+               
+               <a href="{% url 'detail_camp' city.pk %}">
+                        <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
+               <div class="u-container-layout u-similar-container u-container-layout-1">
+                 <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+               </div>
+             </div>
+                        </a>
+   
+   {% endfor %}
+   </div>
+           <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
+             <span aria-hidden="true">
+               <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+   c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+   c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+             </span>
+             <span class="sr-only">
+               <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+   c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+   c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+             </span>
+           </a>
+           <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="#" role="button">
+             <span aria-hidden="true">
+               <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+   L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+   c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+             </span>
+             <span class="sr-only">
+               <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+   L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+   c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+             </span>
+           </a>
+         </div>
+       </div>
+     </section>
+     <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
+       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+         <h2 class="u-text u-text-default u-text-1">Tours</h2>
+         <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
+           <div class="u-repeater u-repeater-1">
+               {% for city in tours %}
+               
+               <a href="{% url 'detail_tour' city.pk %}">
+                        <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}">
+               <div class="u-container-layout u-similar-container u-container-layout-1">
+                 <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                 <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+               </div>
+             </div>
+                        </a>
+   
+   {% endfor %}
+   </div>
+           <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
+             <span aria-hidden="true">
+               <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+   c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+   c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+             </span>
+             <span class="sr-only">
+               <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+   c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+   c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+             </span>
+           </a>
+           <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="#" role="button">
+             <span aria-hidden="true">
+               <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+   L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+   c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+             </span>
+             <span class="sr-only">
+               <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+   L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+   c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+             </span>
+           </a>
+         </div>
+       </div>
+     </section></div>
+{% endblock %}   
 </body>
 </html>
