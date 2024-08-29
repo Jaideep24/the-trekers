@@ -1,7 +1,14 @@
 {% include 'trekkapp/Home.html' %}
 {% load static %}
 
-<div style="position: fixed; margin: -6% 0% 0% 75%; box-shadow: 1px 1px 200px -100px; height: 50%; padding: 2%;overflow-y: scroll;">
+<div id="booking" style="position: fixed; margin: -6% 0% 0% 75%; box-shadow: 1px 1px 200px -100px; height: 50%; padding: 2%;overflow-y: scroll;z-index: 1006;">
+  <style>
+    @media screen and (max-width:500px){
+      #booking{
+      margin-left: 47% !important;
+      }
+    }
+  </style>
   <center><form action="" method="post" >{% csrf_token %}<button class="btn btn-primary">Enquire</button></form>
   </center>
   <script>
