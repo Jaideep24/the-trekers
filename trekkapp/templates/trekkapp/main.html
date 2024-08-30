@@ -1,0 +1,449 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        
+</head>
+{% include 'trekkapp/Home.html' %}
+
+{% load static %}
+{% block content %}
+
+<div style=" z-index: 1000; background-color: #ffffff; margin-top: 2%;" id="list">
+    <center><h1>Upcoming</h1></center>
+    <section class="u-align-center u-clearfix u-section-2" id="carousel_62e9">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1" >
+        <div class="u-expanded-width u-layout-horizontal u-list u-list-1" style="box-shadow: 1px 1px 200px -100px;">
+          <div class="u-repeater u-repeater-1">
+              {% for city in cities %}
+              {% if city.upcoming == True %}
+              <a href="{% url 'detail_article' city.pk %}">
+                       <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+              <div class="u-container-layout u-similar-container u-container-layout-1" >
+                
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+              </div>
+            </div>
+                       </a>
+    {% endif %}
+    {% endfor %}
+    {% for city in cycling %}
+              {% if city.upcoming == True %}
+              <a href="{% url 'detail_cycle' city.pk %}">
+                       <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+              <div class="u-container-layout u-similar-container u-container-layout-1" >
+                
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+              </div>
+            </div>
+                       </a>
+    {% endif %}
+    {% endfor %}
+    {% for city in camping %}
+              {% if city.upcoming == True %}
+              <a href="{% url 'detail_camp' city.pk %}">
+                       <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+              <div class="u-container-layout u-similar-container u-container-layout-1" >
+                
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+              </div>
+            </div>
+                       </a>
+    {% endif %}
+    {% endfor %}
+    {% for city in tours %}
+              {% if city.upcoming == True %}
+              <a href="{% url 'detail_tour' city.pk %}">
+                       <div class="u-align-left u-container-style u-list-item u-repeater-item" id="{{ city.name }}" >
+              <div class="u-container-layout u-similar-container u-container-layout-1" >
+                
+                <img class="u-expanded-width u-image u-image-default u-image-1" alt="" data-image-width="2836" data-image-height="1875" src="/media/{{ city.image }}">
+                <h4 class="u-align-center u-text u-text-2">{{ city.name }} </h4>
+              </div>
+            </div>
+                       </a>
+    {% endif %}
+    {% endfor %}
+    </div>
+          <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button">
+            <span aria-hidden="true">
+              <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+    c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+    c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+            </span>
+            <span class="sr-only">
+              <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+    c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+    c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+            </span>
+          </a>
+          <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="#" role="button">
+            <span aria-hidden="true">
+              <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+    L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+    c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+            </span>
+            <span class="sr-only">
+              <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+    L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+    c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+<div class="hexagon-container">
+    <div class="hexagon center"><center><h3 style="top: 5%; transform: translate(0%, 100%);"></h4></center></div>
+    <a href="/trekking"><div class="hexagon top"><center><h3 style="top: 5%; transform: translate(0%, 90%);">Trekking</h4></center></div></a>
+    <a href="/festivals"><div class="hexagon top-left"><center><h3 style="top: 5%; transform: translate(0%, 90%);">Festivals</h4></center></div></a>
+    <a href="/adventure"><div class="hexagon top-right"><center><h3 style="top: 5%; transform: translate(0%, 90%);">Adventure</h4></center></div></a>
+    <a href="/cycling"><div class="hexagon bottom-left"><center><h3 style="top: 5%; transform: translate(0%, 90%);">Cycling</h4></center></div></a>
+    <a href="/camping"><div class="hexagon bottom-right"><center><h3 style="top: 5%; transform: translate(0%, 90%);">Camping</h4></center></div></a>
+    <a href="/tours"><div class="hexagon bottom"><center><h3 style="top: 5%; transform: translate(0%, 90%);">Tours</h4></center></div></a>
+    
+</div>
+<style>
+    
+    .hexagon-container {
+    position: relative;
+    width: 0;
+    height: 0;
+    margin-top: 20%;
+   margin-left: 50% ;
+   margin-bottom: 50%;
+    transform:translate(-50%,-50%);
+
+}
+@media screen and (max-width:800px){
+    .hexagon-container{
+        margin-top: 30%;
+    }
+}
+.hexagon {
+    aspect-ratio: 1/cos(30deg);
+  clip-path: polygon(50% -50%,100% 50%,50% 150%,0 50%);
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+	height: 180px;
+    background: linear-gradient(-45deg,#CD8C52,#5E9FA3);
+}
+.top{
+    background-image: url('https://static.vecteezy.com/system/resources/previews/021/916/177/non_2x/hiker-goes-against-sky-and-sun-hiking-concept-free-photo.jpg');
+    background-size: cover; /* or contain, depending on your needs */
+    background-position: center; /* adjust this if needed */
+    background-repeat: no-repeat; /* prevents the image from repeating */
+}
+.top-left{
+    background-image: url('https://img.freepik.com/free-vector/flat-brazilian-carnival-background_23-2149252652.jpg');
+    background-size: cover; /* or contain, depending on your needs */
+    background-position: center; /* adjust this if needed */
+    background-repeat: no-repeat; /* prevents the image from repeating */
+}
+.top-right{
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/022/726/646/small/detailed-adventure-background-generat-ai-free-photo.jpg');
+    background-size: cover; /* or contain, depending on your needs */
+    background-position: center; /* adjust this if needed */
+    background-repeat: no-repeat; /* prevents the image from repeating */
+}
+.bottom-left{
+    background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20240410/pngtree-cycling-race-stylized-background-cyclist-silhouette-sport-illustration-ai-image_15652302.jpg');
+    background-size: cover; /* or contain, depending on your needs */
+    background-position: center; /* adjust this if needed */
+    background-repeat: no-repeat; /* prevents the image from repeating */
+}
+.bottom-right{
+    background-image: url('https://wallpapers.com/images/featured/camping-background-rgj5169zktuggn6e.jpg');
+    background-size: cover; /* or contain, depending on your needs */
+    background-position: center; /* adjust this if needed */
+    background-repeat: no-repeat; /* prevents the image from repeating */
+}
+.bottom{
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuXuJR6vVDTNL-IA-v_xS8Q9LmjNZ-1WJgZA&s');
+    background-size: cover; /* or contain, depending on your needs */
+    background-position: center; /* adjust this if needed */
+    background-repeat: no-repeat; /* prevents the image from repeating */
+}
+/* Center Hexagon */
+.center {
+    background-image: url("{% static 'LOGO.png' %}");
+    background-size: contain; /* or contain, depending on your needs */
+    background-position: center; /* adjust this if needed */
+    background-repeat: no-repeat; /* prevents the image from repeating */
+    top: 0;
+    left: 0;
+}
+
+/* Surrounding Hexagons */
+@media screen and (max-width:2560px){
+    .hexagon{
+        height: 250px;
+    }
+    .top-left {
+    top: -150px;
+    left: -270px;
+    
+}
+
+.top-right {
+    top: -150px;
+    left: 270px;
+    
+}
+
+.bottom-left {
+    top: 150px;
+    left: -270px;
+    
+}
+
+.bottom-right {
+    top: 150px;
+    left: 270px;
+    
+}
+
+.top {
+    top: -325px;
+    left: 0px;
+    
+}
+
+.bottom {
+    top: 325px;
+    left: 0px;
+    
+}
+}
+@media screen and (max-width:1450px){
+    .hexagon{
+        height: 180px;
+    }
+    .top-left {
+    top: -100px;
+    left: -180px;
+    
+}
+
+.top-right {
+    top: -100px;
+    left: 180px;
+    
+}
+
+.bottom-left {
+    top: 100px;
+    left: -180px;
+    
+}
+
+.bottom-right {
+    top: 100px;
+    left: 180px;
+    
+}
+
+.top {
+    top: -200px;
+    left: 0px;
+    
+}
+
+.bottom {
+    top: 200px;
+    left: 0px;
+    
+}
+}
+
+
+
+@media screen and (max-width:425px){
+    .hexagon{
+        height: 120px;
+    }
+    .top-left {
+    top: -70px;
+    left: -126px;
+    
+}
+
+.top-right {
+    top: -70px;
+    left: 126px;
+    
+}
+
+.bottom-left {
+    top: 70px;
+    left: -126px;
+    
+}
+
+.bottom-right {
+    top: 70px;
+    left: 126px;
+    
+}
+
+.top {
+    top: -140px;
+    left: 0px;
+    
+}
+
+.bottom {
+    top: 140px;
+    left: 0px;
+    
+}
+    
+}
+@media screen and (max-width:375px){
+    .hexagon{
+        height: 110px;
+    }
+
+    .top-left {
+    top: -60px;
+    left: -108px;
+    
+}
+
+.top-right {
+    top: -60px;
+    left: 108px;
+    
+}
+
+.bottom-left {
+    top: 60px;
+    left: -108px;
+    
+}
+
+.bottom-right {
+    top: 60px;
+    left: 108px;
+    
+}
+
+.top {
+    top: -120px;
+    left: 0px;
+    
+}
+
+.bottom {
+    top: 120px;
+    left: 0px;
+    
+}
+}
+@media screen and (max-width:325px){
+    .hexagon{
+        height: 100px;
+    }
+    .top-left {
+    top: -55px;
+    left: -99px;
+    
+}
+
+.top-right {
+    top: -55px;
+    left: 99px;
+    
+}
+
+.bottom-left {
+    top: 55px;
+    left: -99px;
+    
+}
+
+.bottom-right {
+    top: 55px;
+    left: 99px;
+    
+}
+
+.top {
+    top: -110px;
+    left: 0px;
+    
+}
+
+.bottom {
+    top: 110px;
+    left: 0px;
+    
+}
+    
+}
+/* Responsive Styles */
+
+</style>
+<script>
+    function forwarddoing(i){
+        Array.from(document.getElementsByClassName("something")).forEach(element => {
+            // Get the current margin value
+            let margin = window.getComputedStyle(element).marginLeft;
+            let numericMargin = parseFloat(margin); // Convert margin to a number
+            
+            // Calculate the new margin
+            let x = i / 1000;
+            //console.log(x);
+            //console.log(numericMargin);
+            let newMargin = numericMargin - 4650 * ((Math.pow(x, 4) / 4) - (Math.pow(x, 3)*0.25) + (Math.pow(x, 2)/16));
+            //console.log(newMargin);
+            // Set the new margin
+            element.style.marginLeft = `${newMargin}px`;
+        });
+    }
+    
+    function forward(){
+        for(let i = 0; i <= 500; i++){
+            setTimeout(() => {
+                forwarddoing(i);
+            }, i); // Adjust the multiplier to control the timing interval
+        }
+    }
+    function backwarddoing(i){
+        Array.from(document.getElementsByClassName("something")).forEach(element => {
+            // Get the current margin value
+            let margin = window.getComputedStyle(element).marginLeft;
+            let numericMargin = parseFloat(margin); // Convert margin to a number
+            
+            // Calculate the new margin
+            let x = i / 1000;
+            //console.log(x);
+            //console.log(numericMargin);
+            let newMargin = numericMargin + 4650 * ((Math.pow(x, 4) / 4) - (Math.pow(x, 3)*0.25) + (Math.pow(x, 2)/16));
+            //console.log(newMargin);
+            // Set the new margin
+            element.style.marginLeft = `${newMargin}px`;
+        });
+    }
+    
+    function backward(){
+        for(let i = 0; i <= 500; i++){
+            setTimeout(() => {
+                backwarddoing(i);
+            }, i); // Adjust the multiplier to control the timing interval
+        }
+    }
+</script> 
+</div>
+  
+{% endblock %}   
+</body>
+</html>
