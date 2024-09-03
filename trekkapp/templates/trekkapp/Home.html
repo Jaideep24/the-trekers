@@ -366,9 +366,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
   min-height: 80px;
   height:500px;
 }
- #list h1{
-  margin-top:100px !important;
- }
+
 
 .u-section-2 .u-text-1 {
   margin: 53px auto 0;
@@ -503,7 +501,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 
 @media (max-width: 991px) {
   .u-section-2 .u-sheet-1 {
-    min-height: 614px;
+    min-height: 514px;
   }
 
   .u-section-2 .u-text-1 {
@@ -549,7 +547,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 
 @media (max-width: 767px) {
   .u-section-2 .u-sheet-1 {
-    min-height: 630px;
+    min-height: 530px;
   }
 
   .u-section-2 .u-text-1 {
@@ -610,7 +608,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 
 @media (max-width: 575px) {
   .u-section-2 .u-sheet-1 {
-    min-height: 590px;
+    min-height: 540px;
   }
 
   .u-section-2 .u-text-1 {
@@ -43142,7 +43140,34 @@ a.u-link.u-text-hover-grey-90:hover {
     <meta property="og:type" content="website">
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
   <body style="margin: 0;">
-   
+    <div id="loading-screen">
+        <div class="boxes">
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+    </div>
     <header style=" opacity: 0.9; position: sticky; height: 25vh; top: 0; z-index: 1000;">
         
         <nav style="z-index: 1001; background-color:#F9E79F">
@@ -43183,7 +43208,7 @@ search
 </span>
           </button>
           <div>
-          <ul id="searching" style="color: #FFF; background-color: #2f3640; top:59px;">
+          <ul class="searchlist" id="searching" style="color: #FFF; background-color: #2f3640; top:59px;">
           </ul></div>
       </div>
             
@@ -43225,7 +43250,166 @@ search
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/* styles.css */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it stays on top of other content */
+}
 
+.boxes {
+    height: 32px;
+    width: 32px;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    margin-top: 32px;
+    -webkit-transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+    transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+}
+.boxes .box {
+    width: 32px;
+    height: 32px;
+    top: 0px;
+    left: 0;
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+
+
+.boxes .box:nth-child(1) {
+    -webkit-transform: translate(100%, 0);
+    transform: translate(100%, 0);
+    -webkit-animation: box1 1s linear infinite;
+    animation: box1 1s linear infinite;
+}
+.boxes .box:nth-child(2) {
+    -webkit-transform: translate(0, 100%);
+    transform: translate(0, 100%);
+    -webkit-animation: box2 1s linear infinite;
+    animation: box2 1s linear infinite;
+}
+.boxes .box:nth-child(3) {
+    -webkit-transform: translate(100%, 100%);
+    transform: translate(100%, 100%);
+    -webkit-animation: box3 1s linear infinite;
+    animation: box3 1s linear infinite;
+}
+.boxes .box:nth-child(4) {
+    -webkit-transform: translate(200%, 0);
+    transform: translate(200%, 0);
+    -webkit-animation: box4 1s linear infinite;
+    animation: box4 1s linear infinite;
+}
+
+
+
+.boxes .box > div {
+    background: #5C8DF6;
+    --translateZ: 15.5px;
+    --rotateY: 0deg;
+    --rotateX: 0deg;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #5C8DF6;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    -webkit-transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+    transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+}
+
+.boxes .box > div:nth-child(1) {
+    top: 0;
+    left: 0;
+    background: #5C8DF6;
+}
+.boxes .box > div:nth-child(2) {
+    background: #145af2;
+    right: 0;
+    --rotateY: 90deg;
+}
+.boxes .box > div:nth-child(3) {
+    background: #447cf5;
+    --rotateX: -90deg;
+}
+.boxes .box > div:nth-child(4) {
+    background: #DBE3F4;
+    top: 0;
+    left: 0;
+    --translateZ: -90px;
+}
+
+
+
+
+
+@keyframes box1 {
+    0%,
+    50% {
+        transform: translate(100%, 0);
+    }
+    100% {
+        transform: translate(200%, 0);
+    }
+}
+
+@keyframes box2 {
+    0%{
+        transform: translate(0, 100%);
+    }
+    50% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(100%, 0);
+    }
+}
+
+@keyframes box3 {
+    0%,
+    50% {
+        transform: translate(100%, 100%);
+    }
+    100% {
+        transform: translate(0, 100%);
+    }
+}
+
+@keyframes box4 {
+    0%{
+        transform: translate(200%, 0);
+    }
+    50% {
+        transform: translate(200%, 100%);
+    }
+    100% {
+        transform: translate(100%, 100%);
+    }
+}
+.fade-in {
+    opacity: 0;
+    transform: translateX(-100px); /* Adjust as needed */
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
 nav {
   padding: 5px 5%;
   display: flex;
@@ -43364,9 +43548,15 @@ nav ul li a:hover {
 
   margin:auto;
 }
+.searchlist{
+  transition:0.4s;
+  max-height:0px;
+  width:40px;
+  overflow:hidden;
+}
 .searchBox {
     position: absolute;
-    top:10%;
+    top:20%;
     left: 70%;
     transform:  translate(-50%,50%);
     background: #2f3640;
@@ -43381,6 +43571,11 @@ nav ul li a:hover {
     width: 22vw !important;
     padding: 0 6px !important;
     transition: 0.4s !important;
+}
+.searchBox:hover > div .searchlist {
+    width: 22vw;
+    max-height:300px;
+    transition: 0.4s;
 }
 
 .searchBox:hover > .searchButton {
@@ -43415,7 +43610,7 @@ nav ul li a:hover {
     transition:0.4s !important;
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 780px) {
 .searchBox{
 height: 45px ;
 border-radius: 40px;
@@ -43430,10 +43625,16 @@ font-size: 12px !important;
 height: 30px;
 width: 30px;
 }
+.searchlist{
+  width:30px;
+}
 .searchBox:hover > .searchInput {
     width: 15vw !important;
     padding: 0 6px !important;
     transition: 0.4s !important;
+}
+.searchBox:hover .searchlist{
+  width:15vw;
 }
 nav .logo img {
   height: 60px;
@@ -43881,8 +44082,10 @@ mobileNav.addEventListener("click", () => toggleNav());
       open = false;
     }
   });
+
+
             </script>
-              <marquee behavior="" direction="" style="background-color: blue; color: white; bottom:6px;">Welcome to the trekers</marquee>
+              <marquee behavior="" direction="" style="background-color: blue; color: white; bottom:6px;border-color:black; box-shadow:0px 1px 20px 1px black;">{{ marquee.content }}</marquee>
     </header>
       {% if object.upcoming %}
       <style>
@@ -44167,6 +44370,7 @@ mobileNav.addEventListener("click", () => toggleNav());
             document.getElementById("numcheck").style.color="red";
           }
         });
+
         </script>
             <h4>Payment Methods</h4>
             <button onclick="Back()" class="btn">Back</button>
@@ -44183,4 +44387,24 @@ mobileNav.addEventListener("click", () => toggleNav());
       {% block content %}
     
   {% endblock content %}
+  <script>
+    // script.js
+
+    window.addEventListener('load', function() {
+            var loadingScreen = document.getElementById('loading-screen');
+            
+            var fadeElements = document.querySelectorAll('.fade-in');
+
+    // Hide the loading screen and show the main content
+    loadingScreen.style.display = 'none';
+    
+
+    // Add a slight delay to ensure the content is visible before animation starts
+    fadeElements.forEach(function(element,index) {
+        setTimeout(function() {
+            element.classList.add('visible');
+        }, index*400);
+    }); // Adjust the delay as needed
+        });
+</script>
 </body></html>

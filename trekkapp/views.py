@@ -106,31 +106,31 @@ def verify_recaptcha(recaptcha_response):
 
 def index(request):
 
-    return render(request,'trekkapp/main.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
+    return render(request,'trekkapp/main.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first() })
 
 def trekking(request):
 
-    return render(request,'trekkapp/trekking.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
+    return render(request,'trekkapp/trekking.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first() })
 
 def festivals(request):
 
-    return render(request,'trekkapp/festival.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
+    return render(request,'trekkapp/festival.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first() })
 
 def adventure(request):
 
-    return render(request,'trekkapp/adventure.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
+    return render(request,'trekkapp/adventure.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first() })
 
 def cycling(request):
 
-    return render(request,'trekkapp/cycling.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
+    return render(request,'trekkapp/cycling.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first() })
 
 def camping(request):
 
-    return render(request,'trekkapp/camping.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
+    return render(request,'trekkapp/camping.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first() })
 
 def tour(request):
 
-    return render(request,'trekkapp/tours.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))) })
+    return render(request,'trekkapp/tours.html', {"name":"Monsson", "trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),"cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first() })
 
 def about(request):
     return render(request,'trekkapp/About.html')
@@ -175,7 +175,7 @@ class Detailedtrek(DetailView):
                     return HttpResponseRedirect(self.request.path_info)
                 else:
                     print(form.errors)  # Print form errors to console for debugging
-                    return render(request, 'trekkapp/contact.html', {'form': form, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                    return render(request, 'trekkapp/contact.html', {'form': form, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
         elif 'captchasubmit' in request.POST:
             print("it works")
             user_input = request.POST.get('captcha')
@@ -186,9 +186,9 @@ class Detailedtrek(DetailView):
                 print("hi")
                 return HttpResponseRedirect(self.request.path_info)
             else:
-                return render(request, 'trekkapp/contact.html', {'form': EnquireForm, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                return render(request, 'trekkapp/contact.html', {'form': EnquireForm, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
         else:
-             return render(request, 'trekkapp/contact.html', {'form': EnquireForm, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+             return render(request, 'trekkapp/contact.html', {'form': EnquireForm, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
 class DetailedCycle(DetailView):
     model=Cycling
     template_name="trekkapp/trekdetails.html"
@@ -229,7 +229,7 @@ class DetailedCycle(DetailView):
                     return HttpResponseRedirect(self.request.path_info)
                 else:
                     print(form.errors)  # Print form errors to console for debugging
-                    return render(request, 'trekkapp/contact.html', {'form': form, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                    return render(request, 'trekkapp/contact.html', {'form': form, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
         elif 'captchasubmit' in request.POST:
             print("it works")
             user_input = request.POST.get('captcha')
@@ -239,7 +239,7 @@ class DetailedCycle(DetailView):
                 print("hi")
                 return HttpResponseRedirect(self.request.path_info)
         else:
-             return render(request, 'trekkapp/contact.html', {'form': EnquireForm, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+             return render(request, 'trekkapp/contact.html', {'form': EnquireForm, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
 class DetailedCamp(DetailView):
     model=Camping
     template_name="trekkapp/trekdetails.html"
@@ -277,7 +277,7 @@ class DetailedCamp(DetailView):
                     return HttpResponseRedirect(self.request.path_info)
                 else:
                     print(form.errors)  # Print form errors to console for debugging
-                    return render(request, 'trekkapp/contact.html', {'form': form, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                    return render(request, 'trekkapp/contact.html', {'form': form, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
         elif 'something' in request.POST:
             user_input = request.POST.get('captcha')
             captcha_text = request.session.get('captcha_text')
@@ -286,7 +286,7 @@ class DetailedCamp(DetailView):
                 print("hi")
                 return HttpResponseRedirect(self.request.path_info)
         else:
-             return render(request, 'trekkapp/contact.html', {'form': EnquireForm, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+             return render(request, 'trekkapp/contact.html', {'form': EnquireForm, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
 class Detailedtour(DetailView):
     model=Tours
     template_name="trekkapp/trekdetails.html"
@@ -325,7 +325,7 @@ class Detailedtour(DetailView):
                     return HttpResponseRedirect(self.request.path_info)
                 else:
                     print(form.errors)  # Print form errors to console for debugging
-                    return render(request, 'trekkapp/contact.html', {'form': form, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                    return render(request, 'trekkapp/contact.html', {'form': form, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
         elif 'something' in request.POST:
             user_input = request.POST.get('captcha')
             captcha_text = request.session.get('captcha_text')
@@ -335,7 +335,7 @@ class Detailedtour(DetailView):
                 return HttpResponseRedirect(self.request.path_info)
 
         else:
-             return render(request, 'trekkapp/contact.html', {'form': EnquireForm, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+             return render(request, 'trekkapp/contact.html', {'form': EnquireForm, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
         
 def contact(request):
     if request.method=='POST':
@@ -352,20 +352,20 @@ def contact(request):
 
                 # Send email
                 send_mail(subject, message, from_email, [recipient_email])
-                return render(request,'trekkapp/contact.html',{'form':ContactForm,'success':True, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                return render(request,'trekkapp/contact.html',{'form':ContactForm,'success':True, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
             else:
                 pattern=r"^(?:\+91|91)?[789]\d{9}$"
                 emailpattern=r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
                 if(re.match(pattern,request.POST['number'])==None):
-                    return render(request,'trekkapp/contact.html',{'form':ContactForm,'number':True, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                    return render(request,'trekkapp/contact.html',{'form':ContactForm,'number':True, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
                 elif(re.match(emailpattern,request.POST['email'])==None):
-                    return render(request,'trekkapp/contact.html',{'form':ContactForm,'email':True, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                    return render(request,'trekkapp/contact.html',{'form':ContactForm,'email':True, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
                 else:
-                    return render(request,'trekkapp/contact.html',{'form':ContactForm,'failure':True, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                    return render(request,'trekkapp/contact.html',{'form':ContactForm,'failure':True, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
         else:
-            return render(request,'trekkapp/contact.html',{'form':ContactForm,'captcha':True, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+            return render(request,'trekkapp/contact.html',{'form':ContactForm,'captcha':True, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
     else:
-        return render(request,'trekkapp/contact.html',{'form':ContactForm, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+        return render(request,'trekkapp/contact.html',{'form':ContactForm, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
 
 def personal(request):
     if request.method=='POST':
@@ -404,20 +404,20 @@ def personal(request):
 
                 # Send email
                 send_mail(subject, message, from_email, [recipient_email])
-                return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'success':True, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'success':True, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
             else:
                 pattern=r"^(?:\+91|91)?[789]\d{9}$"
                 emailpattern=r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
                 if(re.match(pattern,request.POST['number'])==None):
-                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'number':True, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'number':True, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
                 elif(re.match(emailpattern,request.POST['email'])==None):
-                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'email':True, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'email':True, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
                 else:
-                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'failure':True, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+                    return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'failure':True, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
         else:
-            return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'captcha':True, "cities_json":json.dumps(list(City.objects.all().values('name')))})
+            return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(),'captcha':True, "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
     else:
-        return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(), "cities_json":json.dumps(list(City.objects.all().values('name')))})
+        return render(request,'trekkapp/contact.html',{'form':PersonalForm,"personal":True,"trekking":Trekking.objects.all(),"cities":City.objects.all(),"festival":Festival.objects.all(),"adventure":Adventure.objects.all(), "camping":Camping.objects.all(),"cycling":Cycling.objects.all(), "tours":Tours.objects.all(), "cities_json":json.dumps(list(City.objects.all().values('name'))),"marquee":Marquee.objects.first()})
 
 def view(request):
     userlist=Logger.objects.all().values()
