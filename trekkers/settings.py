@@ -94,12 +94,8 @@ TEMPLATES = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'the_trekers',
-        'USER': 'Jaideep',
-        'PASSWORD': '24042006',
-        'HOST': 'thetrekers.cr4w02ggoh31.eu-north-1.rds.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
