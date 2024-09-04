@@ -37,7 +37,7 @@ SECRET_KEY = 'django-insecure-pz__%i54hjzq5*bv^ahw+d0=8*t+v#qegg6_n_%sbgiy+8rh&q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','192.168.29.142','192.168.0.152','yourdomain.com','thetrekers.pythonanywhere.com','.vercel.app','.now.sh']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','192.168.29.142','192.168.0.152','192.168.0.199','yourdomain.com','thetrekers.pythonanywhere.com','.vercel.app','.now.sh']
 
 
 # Application definition
