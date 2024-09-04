@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
+
 """
 
 from pathlib import Path
@@ -93,8 +94,12 @@ TEMPLATES = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'the_trekers',
+        'USER': 'Jaideep',
+        'PASSWORD': '24042006',
+        'HOST': 'thetrekers.cr4w02ggoh31.eu-north-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
