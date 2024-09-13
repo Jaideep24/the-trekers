@@ -3,12 +3,50 @@
 <head>
   <title>{{ object.name }}</title>
 </head>
-<div id="booking" style="position: fixed; margin: 0% 0% 0% 75%; box-shadow: 1px 1px 200px -100px; height: 50%; padding: 2%;overflow-y: scroll;z-index: 1006;">
+
+<div style="position:fixed; margin-top:-21px; width:100vw; box-shadow: 1px 1px 200px -100px; display:flex; background-color:white; align-items:center; gap:10px; z-index:2000;">
+<div>About</div>
+<div>Did you know</div>
+<div>Itenerary</div>
+<div>Inclusions</div>
+<div>Info</div>
+</div>
+<div id="booking" style="position: fixed; margin: 0% 0% 0% 75%; box-shadow: 1px 1px 200px -100px; height: 10%; padding: 2%; z-index: 1006;">
   <style>
+  
     @media screen and (max-width:500px){
       #booking{
-      margin-left: 47% !important;
+      margin-left: 0% !important;
+      margin-top:90vh !important;
+      display:flex;
+      align-items:center;
+      gap:10px;
       }
+      #bookbutton{
+        margin-top:0% !important;
+      }
+      #content *{
+    width:100% !important;
+  }
+      #upcoming{
+      margin-left: 70% !important;
+      margin-top:0%;
+      max-height:50px ! important;
+      }
+    }
+    @media screen and (max-width:400px){
+      #upcoming{
+        margin-left:67% !important;
+    }
+    @media screen and (max-width:330px){
+      #upcoming{
+        margin-left:63% !important;
+      }
+    }
+    #upcoming:hover{
+      max-height:1000px !important;
+      opacity:1 !important;
+      
     }
   </style>
   <center><form action="" method="post" >{% csrf_token %}<button class="btn btn-primary">Enquire</button></form>
@@ -21,9 +59,12 @@
   </script>
   {% if object.upcoming %}
   
-  <center><button id="bookbutton" onclick="booknow()" class="btn btn-primary" style="margin-top: 3px;">Book Now</button></center>
+  <center><button id="bookbutton" style="margin-top:2%;" onclick="booknow()" class="btn btn-primary">Book Now</button></center>
   {% endif %}
+  
   <a href="https://wa.me//919819185865"><img src="{% static '64px-WhatsApp_icon.png' %}" alt=""></a>
+  </div>
+  <div id="upcoming" style="position: fixed; margin: 12% 0% 0% 75%; box-shadow: 1px 1px 200px -100px; max-height: 70px; opacity:0.5; padding: 2%;overflow-y: hidden;z-index: 1030; transition: max-height 1s ease, opacity 1s ease;">
     <h3 style="margin: 5px;">Upcoming</h3>
   <ul style="margin: 5px;">
     {% for i in cities %}
@@ -129,7 +170,7 @@
     
   </div>
   <br>
-  <div style="background-color: #fff;">
+  <div id="content">
   <br>
   <h2>About {{ object.name }}</h2>
   <div style="box-shadow: 10px 10px 200px -100px; width: 70%; height: 50%; border-color: white; padding: 10%;">
