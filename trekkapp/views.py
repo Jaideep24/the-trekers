@@ -441,6 +441,8 @@ def view(request):
                     return render(request, 'blog/login.html',{"warning":"error"}) 
     elif request.method=="GET":
         return(render(request,'blog/login.html'))
+def is_ajax(request):
+    return request.headers.get('x-requested-with') == 'XMLHttpRequest'
 
 class Index(ListView):
     model = Article
@@ -475,7 +477,7 @@ class DetailArticleView(DetailView):
             form.save()
             return HttpResponseRedirect(self.request.path_info)
             
-        elif request.is_ajax():
+        elif is_ajax(request):
             model_id = self.kwargs['pk']  # Assuming your model uses pk as the primary key
             model = self.get_object()
             print("ajax")
