@@ -17,6 +17,15 @@ import random
 import string
 from io import BytesIO
 import datetime
+from django.core.files.storage import default_storage
+
+def upload_image(request):
+    if request.method == 'POST' and request.FILES.get('image'):
+        image = request.FILES['image']
+        image_name = default_storage.save(image.name, image)
+        image_url = default_storage.url(image_name)
+        return JsonResponse({'success': True, 'imageUrl': image_url})
+    return JsonResponse({'success': False})
 
 # Create your views here.
 def generate_captcha_text(length=6):

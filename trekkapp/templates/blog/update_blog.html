@@ -3,12 +3,86 @@
   <div class="col-11 col-md-4 mx-auto mt-5">
     <h1>Update Blog Post</h1>
     <form method="POST">
-      {% csrf_token %} {{ form|crispy }}
+      {% csrf_token %} 
+      <h3>For images within blog</h3>
+      <div class="mb-3">
+  <label for="imageUpload" class="form-label">Upload images for your blog</label>
+      <input class="form-control" type="file" id="imageUpload" accept="image/*">
+      </div>
+      <div class="form-group" >
+    <button class="btn btn-secondary" type="button" id="uploadImageButton">Upload Image</button>
+      </div>
+      {{ form|crispy }}
       <div class="form-group">
         <button class="btn btn-secondary" type="submit">Update</button>
       </div>
     </form>
     <div class="pt-3"></div>
   </div>
+  <script>
+  document.getElementById('uploadImageButton').addEventListener('click', function() {
+    const imageInput = document.getElementById('imageUpload');
+    const file = imageInput.files[0];
+
+    if (!file) {
+        alert('Please select an image first.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    fetch('/upload-image/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest', // Django CSRF protection
+            'X-CSRFToken': getCookie('csrftoken') // CSRF token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Assuming the server returns the image URL or filename
+        if (data.success) {
+            const imageUrl = data.imageUrl; // Adjust according to your server response
+            insertImageIntoText(imageUrl);
+        } else {
+            console.error('Image upload failed.');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+function insertImageIntoText(imageUrl) {
+    const textField = document.getElementById('id_content');
+    const text = textField.value;
+    
+    // Assuming user wants to insert the image at the cursor position
+    const cursorPosition = textField.selectionStart;
+    const beforeText = text.substring(0, cursorPosition);
+    const afterText = text.substring(cursorPosition);
+
+    // Construct the image tag
+    const imageTag = `<img style="width:50vw;" src="${imageUrl}" alt="Uploaded Image">`;
+
+    // Update the text field with the image tag
+    textField.value = beforeText + imageTag + afterText;
+}
+
+  </script>
   {% endblock content %}
 </div>
