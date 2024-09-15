@@ -153,6 +153,7 @@ class Detailedtrek(DetailView):
         context["cities"]=City.objects.all()
         context["Gallery"]=Gallery.objects.all().filter(city=self.get_object())
         context["cities_json"]=json.dumps(list(City.objects.all().values('name')))
+        context["marquee"]=Marquee.objects.first()
         self.object=self.get_object()
         print(self.object.trekking)
         context["form"]=EnquireForm(initial={'thetrek':self.object.__dict__})
@@ -208,6 +209,7 @@ class DetailedCycle(DetailView):
         context["Gallery"]=Gallery.objects.all().filter(cycling=self.get_object())
         context["cities_json"]=json.dumps(list(City.objects.all().values('name')))
         context["form"]=EnquireForm(initial={'thetrek':self.object})
+        context["marquee"]=Marquee.objects.first()
         return context
     
     
@@ -259,6 +261,7 @@ class DetailedCamp(DetailView):
         context["Gallery"]=Gallery.objects.all().filter(camping=self.get_object())
         context["cities_json"]=json.dumps(list(City.objects.all().values('name')))
         context["form"]=EnquireForm(initial={'thetrek':self.object})
+        context["marquee"]=Marquee.objects.first()
         return context
     def post(self, request, **kwargs):
         print(request.POST)
@@ -306,6 +309,7 @@ class Detailedtour(DetailView):
         context["Gallery"]=Gallery.objects.all().filter(tours=self.get_object())
         context["cities_json"]=json.dumps(list(City.objects.all().values('name')))
         context["form"]=EnquireForm(initial={'thetrek':self.object})
+        context["marquee"]=Marquee.objects.first()
         return context
     
     def post(self, request, **kwargs):

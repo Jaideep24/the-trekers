@@ -85,11 +85,11 @@
     <div onclick="popno()" id="cross" style="position: absolute; margin-left: 95%;  margin-top: -5%; color:#fff; opacity: 0;"><button style="background-color: red; color: #fff; border-radius: 50%; " class="btn" >X</button></div>
     <div onclick="popup()" class="carousel-inner">
       <div class="carousel-item active">
-        <img src="https://i.pinimg.com/736x/cb/64/33/cb643340343d0f6259fdd7492d9fb000.jpg" style="width: 100%; height: 70vh;" class="d-block w-100" alt="...">
+        <img src="https://i.pinimg.com/736x/cb/64/33/cb643340343d0f6259fdd7492d9fb000.jpg" style="width: 100%;" class="d-block w-100" alt="...">
       </div>
       {% for photo in Gallery %}
       <div class="carousel-item">
-        <img src="/media/{{ photo.image }}" style=" height: 80vh;" class="d-block w-100" alt="...">
+        <img src="/media/{{ photo.image }}" style=" width: 100%;" class="d-block w-100" alt="...">
       </div>
       {% endfor %}
     </div>
