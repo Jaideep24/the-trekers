@@ -17,6 +17,7 @@
   section {
     scroll-snap-align: center; /* Centers the section in the viewport */
     padding-top:200px;
+    margin-top:-200px;
 }
 
 body {
@@ -54,25 +55,25 @@ body {
         margin-top:0% !important;
       }
       #content *{
-    width:90% !important;
+    width:99% !important;
   }
   #image{
-    width:90% !important;
+    width:99% !important;
   }
       #upcoming{
-      margin-left: 68% !important;
+      margin-left: 58% !important;
       margin-top:0% !important;
       max-height:50px ! important;
       }
     }
     @media screen and (max-width:400px){
       #upcoming{
-        margin-left:64% !important;
+        margin-left:52% !important;
     }
     }
     @media screen and (max-width:330px){
       #upcoming{
-        margin-left:63% !important;
+        margin-left:50% !important;
       }
     }
     
@@ -97,7 +98,7 @@ body {
   
   <a href="https://wa.me//919819185865"><img src="{% static '64px-WhatsApp_icon.png' %}" alt=""></a>
   </div>
-  <div id="upcoming" style="position: fixed; margin: 150px 0% 0% 75%; box-shadow: 1px 1px 200px -100px; max-height: 70px; opacity:0.5; padding: 2%;overflow-y: hidden;z-index: 1030; transition: max-height 1s ease, opacity 1s ease;">
+  <div id="upcoming" style="position: fixed; margin: 200px 0% 0% 75%; box-shadow: 1px 1px 200px -100px; max-height: 70px; opacity:0.5; padding: 2%;overflow-y: hidden;z-index: 1030; transition: max-height 1s ease, opacity 1s ease; background-color:white; border-radius: 25px;">
     <h3 style="margin: 5px;">Upcoming</h3>
   <ul style="margin: 5px;">
     {% for i in cities %}

@@ -27,7 +27,7 @@ class PersonalForm(forms.ModelForm):
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content','image']
+        fields = ['title', 'content','cover_image']
 class CommentForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'required': 'true','style': 'max-width: 100%; width: auto;'}))
     comment = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'max-width: 100%; width: auto;'}))

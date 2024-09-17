@@ -79,7 +79,7 @@ function insertImageIntoText(imageUrl) {
     const afterText = text.substring(cursorPosition);
 
     // Construct the image tag
-    const imageTag = `<img style="width:50vw;" src="${imageUrl}" alt="Uploaded Image">`;
+    const imageTag = `<br><img style="width:50vw;" src="${imageUrl}" alt="Uploaded Image"><br>`;
 
     // Update the text field with the image tag
     textField.value = beforeText + imageTag + afterText;
