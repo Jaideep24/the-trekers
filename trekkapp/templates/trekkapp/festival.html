@@ -1,9 +1,12 @@
-{% include 'trekkapp/Home.html' %}
+{% extends 'trekkapp/Home.html' %}
 {% load static %}
 <head>
   <title>Festivals</title>
 </head>
 {% block content %}
+<head>
+  <title>Festivals</title>
+</head>
 <center><h1>Festival</h1></center>
      {% for object in festival %}
      {% if object.exclude == False %}

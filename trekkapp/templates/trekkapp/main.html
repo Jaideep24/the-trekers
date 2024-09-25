@@ -1,4 +1,4 @@
-
+{% extends 'trekkapp/Home.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -7,10 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
         <title>Home</title>
 </head>
-{% include 'trekkapp/Home.html' %}
+
 
 {% load static %}
 {% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>Home</title>
+</head>
 <div style="box-shadow: 1px 1px 200px -100px; width: 95%; ">
     <h1 class="fade-in" style="position: absolute; margin-top: 20%; margin-left: 5%; color: #fff; z-index: 5;box-shadow: 5px 5px 200px -100px;">
       Welcome to The Trekers
@@ -533,6 +538,4 @@
 </script> 
 </div>
   
-{% endblock %}   
-</body>
-</html>
+{% endblock content %}   
